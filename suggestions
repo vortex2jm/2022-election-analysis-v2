@@ -1,0 +1,4 @@
+-> Não misturar inglês como português no código
+-> Retirar processamento manual de data da main
+-> Código de gênero dependente do formato de entrada: Criar enum
+-> setCadidatesList é um nome confuso (pois adiciona à lista)
