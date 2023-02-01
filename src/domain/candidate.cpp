@@ -76,3 +76,16 @@ string Candidate::get_nm_tipo_destino_votos(){
 int Candidate::get_geral_position(){
     return this->geral_position;
 }
+
+bool Candidate::operator==(const Candidate& cand2) const{
+    return this->nr_candidato == cand2.nr_candidato and 
+            this->nm_urna_candidato == cand2.nm_urna_candidato and
+            this->nm_tipo_destino_votos == cand2.nm_tipo_destino_votos and
+            this->dt_nascimento == cand2.dt_nascimento and
+            this->cd_sit_tot_turno == cand2.cd_sit_tot_turno and
+            this->cd_genero == cand2.cd_genero and
+            this->party == cand2.party and
+            this->qt_votos == cand2.qt_votos and
+            this->elected_position == cand2.elected_position and
+            this->geral_position == cand2.geral_position;
+}
