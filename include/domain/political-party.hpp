@@ -20,6 +20,7 @@ private:
 public:
     //constructor
     PoliticalParty(int number, string sg, int federation);
+    PoliticalParty();
      // ======================Getters==================================//
 
    string get_sg();
@@ -33,7 +34,7 @@ public:
    void set_legend_votes(int legendVotes);
    void add_candidate(Candidate* candidate);
    void set_position(int position);
-  // ======================other get methods======================//
+  //======================other get methods======================//
 
   /**
    * @return Lista de candidatos do partido, ordenados
