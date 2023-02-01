@@ -10,7 +10,7 @@ class Date {
 
   public:
 
-  Date(int day, int month, int year);
+  Date(std::string date);
   int compare_to(Date);
 };
 

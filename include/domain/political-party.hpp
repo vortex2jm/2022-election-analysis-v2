@@ -20,7 +20,6 @@ private:
 public:
     //constructor
     PoliticalParty(int number, string sg, int federation);
-    PoliticalParty();
      // ======================Getters==================================//
 
    string get_sg();

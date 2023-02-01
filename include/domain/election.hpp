@@ -15,13 +15,13 @@ class Election
 {
 
 private:
-    map<int, Candidate> candidates;
-    map<int, PoliticalParty> parties;
-    map<int, PoliticalParty> legendsCandidatesParties;
-    int nominalVotes = 0;
-    int legendVotes = 0;
+    map<int, Candidate*> candidates;
+    map<int, PoliticalParty*> parties;
+    map<int, PoliticalParty*> legends_candidates_parties;
+    int nominal_votes = 0;
+    int legend_votes = 0;
     int type;
-    Date currentDate;
+    Date current_date;
 
 public:
     Election(int type, string date);
@@ -30,9 +30,9 @@ public:
     int get_nominal_votes();
     int get_legend_votes();
     int get_type();
-    map<int, Candidate> get_candidates__map();
-    map<int, PoliticalParty> get_parties_map();
-    map<int, PoliticalParty> get_legends_candidates_parties();
+    map<int, Candidate*> get_candidates_map();
+    map<int, PoliticalParty*> get_parties_map();
+    map<int, PoliticalParty*> get_legends_candidates_parties();
     Date get_current_date();
 
     // ==============Setters======================//
@@ -52,8 +52,8 @@ public:
      * @param cdGenero           código indicador de gênero
      * @param party              partido do candidato
      */
-    void add_candidate(int nrCandidato, string nmUrnaCandidato, string nmTipoDestinoVotos, Date dtNascimento,
-            bool cdSitTotTurno, int cdGenero, PoliticalParty party);
+    void add_candidate(int nr_candidato, string nm_urna_candidato, string nm_tipo_destino_votos, Date dt_nascimento,
+            bool cd_sit_tot_turno, int cd_genero, PoliticalParty * party);
 
     /**
      * Função factory. Adiciona um partido político à eleição
@@ -72,7 +72,7 @@ public:
      * @param key   chave para alocação no hashmap, utilizado numero do partido
      * @param value o partido
      */
-    void add_legends_candidates_parties(int key, PoliticalParty value);
+    void add_legends_candidates_parties(int key, PoliticalParty * value);
 
     // ==============other get methods==========//
 
