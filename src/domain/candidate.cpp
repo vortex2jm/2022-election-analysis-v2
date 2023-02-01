@@ -2,23 +2,29 @@
 
 //=========================================//
 Candidate::Candidate(int nrCandidato, string nmUrnaCandidato, string nmTipoDestinoVotos, Date dtNascimento,
-            bool cdSitTotTurno, int cdGenero, PoliticalParty party) : dt_nascimento(dtNascimento){
-
+            bool cdSitTotTurno, int cdGenero, PoliticalParty * party) : dt_nascimento(dtNascimento){
+    
+    this->nr_candidato = nrCandidato;
+    this->nm_urna_candidato = nmUrnaCandidato;
+    this->nm_tipo_destino_votos = nmTipoDestinoVotos;
+    this->cd_sit_tot_turno = cdSitTotTurno;
+    this->cd_genero = cdGenero;
+    this->party = party;
 }
 
 //=========================================//
 void Candidate::set_qt_votos(int qtVotos){
-
+    this->qt_votos += qtVotos;
 }
 
 //=========================================//
 void Candidate::set_elected_position(int position){
-
+    this->elected_position = position;
 }
 
 //=========================================//
 void Candidate::set_geral_position(int geralPosition){
-
+    this->geral_position = geralPosition;
 }
 
 //=========================================//

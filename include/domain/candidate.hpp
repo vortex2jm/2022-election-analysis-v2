@@ -25,7 +25,7 @@ private:
 
 public:
     Candidate(int nrCandidato, string nmUrnaCandidato, string nmTipoDestinoVotos, Date dtNascimento,
-            bool cdSitTotTurno, int cdGenero, PoliticalParty party);
+            bool cdSitTotTurno, int cdGenero, PoliticalParty * party);
     // ===============Setters================================================//
     void set_qt_votos(int qtVotos);
     void set_elected_position(int position);
