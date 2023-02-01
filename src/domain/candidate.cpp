@@ -1,14 +1,14 @@
 #include "../../include/domain/candidate.hpp"
 
 //=========================================//
-Candidate::Candidate(int nrCandidato, string nmUrnaCandidato, string nmTipoDestinoVotos, Date dtNascimento,
-            bool cdSitTotTurno, int cdGenero, PoliticalParty * party) : dt_nascimento(dtNascimento){
+Candidate::Candidate(int nr_candidato, string nm_urna_candidato, string nm_tipo_destino_votos, Date dt_nascimento,
+            bool cd_sit_tot_turno, int cd_genero, PoliticalParty * party) : dt_nascimento(dt_nascimento){
     
-    this->nr_candidato = nrCandidato;
-    this->nm_urna_candidato = nmUrnaCandidato;
-    this->nm_tipo_destino_votos = nmTipoDestinoVotos;
-    this->cd_sit_tot_turno = cdSitTotTurno;
-    this->cd_genero = cdGenero;
+    this->nr_candidato = nr_candidato;
+    this->nm_urna_candidato = nm_urna_candidato;
+    this->nm_tipo_destino_votos = nm_tipo_destino_votos;
+    this->cd_sit_tot_turno = cd_sit_tot_turno;
+    this->cd_genero = cd_genero;
     this->party = party;
 }
 
