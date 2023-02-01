@@ -6,6 +6,7 @@ using namespace std;
 #include <map>
 #include <array>
 #include <ctime>
+#include <string>
 #include "./candidate.hpp"
 #include "./political-party.hpp"
 #include "../date/date.hpp"
@@ -23,7 +24,7 @@ private:
     Date currentDate;
 
 public:
-    Election(int type, Date date);
+    Election(int type, string date);
 
     // ==============Getters======================//
     int get_nominal_votes();
