@@ -5,11 +5,14 @@ using namespace std;
 #include <list>
 #include <map>
 #include <array>
-#include "./Candidate.hpp"
-#include "./PoliticalParty.hpp"
+#include <ctime>
+#include "./candidate.hpp"
+#include "./political-party.hpp"
+#include "../date/date.hpp"
 
 class Election
 {
+
 private:
     map<int, Candidate> candidates;
     map<int, PoliticalParty> parties;
@@ -17,24 +20,24 @@ private:
     int nominalVotes = 0;
     int legendVotes = 0;
     int type;
-    LocalDate currentDate;
+    Date currentDate;
 
 public:
-    Election(int type, LocalDate date);
+    Election(int type, Date date);
 
     // ==============Getters======================//
-    int getNominalVotes();
-    int getLegendVotes();
-    int getType();
-    map<int, Candidate> getCandidatesmap();
-    map<int, PoliticalParty> getPartiesmap();
-    map<int, PoliticalParty> getLegendsCandidatesParties();
-    LocalDate getCurrentDate();
+    int get_nominal_votes();
+    int get_legend_votes();
+    int get_type();
+    map<int, Candidate> get_candidates__map();
+    map<int, PoliticalParty> get_parties_map();
+    map<int, PoliticalParty> get_legends_candidates_parties();
+    Date get_current_date();
 
     // ==============Setters======================//
-    void setNominalVotes(int nominalVotes);
-    void setLegendVotes(int legendVotes);
-    void setParties(map<int, PoliticalParty> parties);
+    void set_nominal_votes(int nominalVotes);
+    void set_legend_votes(int legendVotes);
+    void set_parties(map<int, PoliticalParty> parties);
     // ================factory methods====================================//
 
     /**
@@ -48,7 +51,7 @@ public:
      * @param cdGenero           código indicador de gênero
      * @param party              partido do candidato
      */
-    void addCandidate(int nrCandidato, string nmUrnaCandidato, string nmTipoDestinoVotos, LocalDate dtNascimento,
+    void add_candidate(int nrCandidato, string nmUrnaCandidato, string nmTipoDestinoVotos, Date dtNascimento,
             bool cdSitTotTurno, int cdGenero, PoliticalParty party);
 
     /**
@@ -59,7 +62,7 @@ public:
      * @param federation federação do partido
      * @return Retorna o partido político criado
      */
-    PoliticalParty* addPartie(int number, string sg, int federation);
+    PoliticalParty* add_partie(int number, string sg, int federation);
 
     /**
      * Função factory. Adiciona um candidato inválido, porém com voto de legenda
@@ -68,66 +71,66 @@ public:
      * @param key   chave para alocação no hashmap, utilizado numero do partido
      * @param value o partido
      */
-    void addLegendsCandidatesParties(int key, PoliticalParty value);
+    void add_legends_candidates_parties(int key, PoliticalParty value);
 
     // ==============other get methods==========//
 
     /**
      * @return número de candidatos eleitos
      */
-    int electedAmount();
+    int elected_amount();
     
     /**
      * @return lista com os candidatos eleitos
      */
-    list<Candidate> electedCandidates();
+    list<Candidate> elected_candidates();
 
     /**
      * @return lista de candidatos ordenada em termos de votos
      */
-    list<Candidate> getAllCandidates();
+    list<Candidate> get_all_candidates();
 
     /**
      * @return retorna os candidatos mais votados dentro do número de vagas
      *         disponíveis
      */
-    list<Candidate> getBestCandidates();
+    list<Candidate> get_best_candidates();
 
     /**
      * @return candidatos que seriam eleitos em caso de regra majoritária
      */
-    list<Candidate> electedIfMajorElection();
+    list<Candidate> elected_if_major_election();
 
     /**
      * @return lista com os candidatos que foram beneficiados pela regra
      *         proporcional
      */
-    list<Candidate> electedByProportional();
+    list<Candidate> elected_by_proportional();
 
     /**
      * @return lista de partidos ordenados a partir da quantidade de votos
      */
-    list<PoliticalParty> getParties();
+    list<PoliticalParty> get_parties();
 
     /**
      * @return Partidos ordenados a partir dos atributos de seus candidatos
      */
-    list<PoliticalParty> getPartiesOrderedByCandidates();
+    list<PoliticalParty> get_parties_ordered_by_candidates();
     
     /**
      * @param start início do intervalo de interesse de idades
      * @param end   fim do intervalo de interesse de idades
      * @return quantidade de deputados eleitos neste intervalo de idade
      */
-    int electedAmountByAge(int start, int end);
+    int elected_amount_by_age(int start, int end);
     /**
      * @return Quantidade de homens eleitos
      */
-    int electedMen();
+    int elected_men();
     /**
      * @return Quantidade de mulheres eleitas
      */
-    int electedWomen();
+    int elected_women();
 };
 
 #endif // ELECTION_H
