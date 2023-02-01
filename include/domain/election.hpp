@@ -1,10 +1,13 @@
 #if !defined(ELECTION_H)
 #define ELECTION_H
+#define MAN 2
+#define WOMAN 4
 
 using namespace std;
+
 #include <list>
 #include <map>
-#include <array>
+#include <list>
 #include <ctime>
 #include <string>
 #include "./candidate.hpp"
