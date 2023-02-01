@@ -12,21 +12,21 @@ class Candidate
 {
 
 private:
-    int nrCandidato;
-    string nmUrnaCandidato;
-    string nmTipoDestinoVotos;
-    Date dtNascimento;
-    bool cdSitTotTurno;
-    int cdGenero;
-    PoliticalParty party;
-    int qtVotos;
-    int electedPosition;
-    int geralPosition;
+    int nr_candidato;
+    string nm_urna_candidato;
+    string nm_tipo_destino_votos;
+    Date dt_nascimento;
+    bool cd_sit_tot_turno;
+    int cd_genero;
+    PoliticalParty * party;
+    int qt_votos;
+    int elected_position;
+    int geral_position;
 
 public:
     Candidate(int nrCandidato, string nmUrnaCandidato, string nmTipoDestinoVotos, Date dtNascimento,
             bool cdSitTotTurno, int cdGenero, PoliticalParty party);
-        // ===============Setters================================================//
+    // ===============Setters================================================//
     void set_qt_votos(int qtVotos);
     void set_elected_position(int position);
     void set_geral_position(int geralPosition);
@@ -38,17 +38,10 @@ public:
     Date get_dt_nascimento();
     int get_cd_genero();
     int get_elected_position();
-    PoliticalParty get_party();
+    PoliticalParty * get_party();
     string get_nm_urna_candidato();
-    string get_nm__tipo_destino_votos();
+    string get_nm_tipo_destino_votos();
     int get_geral_position();
-
-    // ==============Override================================================//
-    //@Override
-    // int compareTo(Candidate o);
-
-    //@Override
-    // string toString();
 };
 
 #endif
