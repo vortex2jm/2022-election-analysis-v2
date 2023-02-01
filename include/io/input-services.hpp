@@ -5,12 +5,13 @@
 #include <string>
 #include "../domain/election.hpp"
 
-using namespace std;
+namespace input_services{
+    
+    ifstream create_reading_buffer(string file);
 
-ifstream create_reading_buffer(string file);
+    void process_candidates_file(ifstream buffer, Election election);
 
-void process_candidates_file(ifstream buffer, Election election);
-
-void process_votes_file(ifstream buffer, Election election);
+    void process_votes_file(ifstream buffer, Election election);
+}
 
 #endif
