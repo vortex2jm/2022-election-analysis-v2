@@ -12,6 +12,8 @@ class Date {
 
   Date(std::string date);
   int compare_to(Date);
+  int until(Date);
+  bool operator==(const Date& date2) const;
 };
 
 namespace date{

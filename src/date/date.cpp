@@ -8,6 +8,7 @@ Date::Date(std::string date){
   this->year = formatted_date[2];
 }
 
+//=====================================================//
 int Date::compare_to(Date date)
 {
   if(this->year < date.year)
@@ -25,6 +26,30 @@ int Date::compare_to(Date date)
   return 0;
 }
 
+//=====================================================//
+int Date::until(Date date){
+  int age = this->year - date.year;
+  if(this->month < date.month){
+    age--;
+    return age;
+  }
+  if(this->month == date.month){
+    if(this->day < date.day){
+      age--;
+      return age;
+    }
+  }
+  return age;
+}
+
+//=====================================================//
+bool Date::operator==(const Date& date2) const{
+  return this->day == date2.day and
+          this->month == date2.month and
+          this->year == date2.year;
+}
+
+//=====================================================//
 std::vector<int> date::separate_by_slash(std::string date){
 
   int day = stoi(date.substr(0,1));
