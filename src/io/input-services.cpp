@@ -156,17 +156,74 @@ void update_candidates(Election election, PoliticalParty party, vector<string> d
     }
 }
 void update_invalid_candidates(Election election, PoliticalParty party, vector<string> data){
-    
+    int nr_candidato;
+
+        try {
+        nr_candidato = stoi(data[16]);
+    } catch (exception& e) {
+        cout <<"A string não pode ser convertida em um tipo numérico" << endl;
+        throw e;
+    }
+
+    election.add_legends_candidates_parties(nr_candidato, &party);
 }
 bool is_elected_candidate(string sit){
-    
+    int situation;
+
+    try {
+        situation = stoi(sit);
+    } catch (exception& e) {
+        cout << "A string não pode ser convertida em um tipo numérico" << endl;
+        throw e;
+    }
+
+    if (situation == 2 || situation == 3)
+        return true;
+    return false;
 }
 void process_valid_candidates_votes(Election election, vector<string> data){
-    
+    int nr_votavel, qt_votos;
+
+    try {
+        nr_votavel = stoi(data[19]);
+        qt_votos = stoi(data[21]);
+    } catch (exception& e) {
+        cout << "A string não pode ser convertida em um tipo numérico" << endl;
+        throw e;
+    }
+
+    // Se o número é de um candidato, conta como voto nominal
+    if (election.get_candidates_map().count(nr_votavel)) {
+        election.get_candidates_map().at(nr_votavel)->set_qt_votos(qt_votos);
+        election.set_nominal_votes(qt_votos);
+        return;
+    }
+
+    // Se o número é de um partido, conta como voto de legenda
+    if (election.get_parties_map().count(nr_votavel)) {
+        election.get_parties_map().at(nr_votavel)->set_legend_votes(qt_votos);
+        election.set_legend_votes(qt_votos);
+    }
 }
 void process_invalid_candidates_votes(Election election, vector<string> data){
-    
+    int nr_votavel, qt_votos;
+
+    try {
+        nr_votavel = stoi(data[19]);
+        qt_votos= stoi(data[21]);
+    } catch (exception& e) {
+        cout << "A string não pode ser convertida em um tipo numérico" << endl;
+        throw e;
+    }
+
+    // Se o número do candidato está no mapa de candidatos inválidos, conta como
+    // voto de legenda
+    if (election.get_legends_candidates_parties().count(nr_votavel)) {
+        election.get_legends_candidates_parties().at(nr_votavel)->set_legend_votes(qt_votos);
+        election.set_legend_votes(qt_votos);
+    }
 }
+
 
 vector<std::string> split(const string &input, char delimiter) {
     vector<std::string> result;
