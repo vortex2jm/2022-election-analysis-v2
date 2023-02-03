@@ -137,14 +137,59 @@ namespace output_service{
     //====================================================================//
     void output_service::party_voting_and_elected_candidates(Election election)
     {
+        std::cout << "Votação dos partidos e número de candidatos eleitos:" << std::endl;
 
+        std::string vot, nom, cand, ele;
+        for(PoliticalParty p : election.get_parties()){
+            vot = "voto";
+            nom = "nominal";
+            cand = "candidato";
+            ele = "eleito";
+
+            vot = plural_singular_filter(vot, p.get_total_votes());
+            nom = plural_singular_filter(nom, p.get_nominal_votes());
+            cand = plural_singular_filter(cand, p.get_elected_amount());
+            ele = plural_singular_filter(ele, p.get_elected_amount());
+
+            std::cout << p.get_position() << " - ";
+            std::cout.imbue(std::locale("pt_BR.utf8"));
+            std::cout << p.get_sg() << " - " << p.get_number() << ", " << p.get_total_votes() << " " << vot
+            << " (" << p.get_nominal_votes() << " " << nom <<  " e " << p.get_legend_votes() << " de legenda), "
+            << p.get_elected_amount() << " " << cand << " " << ele << std::endl;
+ 
+            std::cout.imbue(std::locale("C"));
+        }
     }
 
+    //====================================================================//
     void output_service::first_and_last_candidates_from_parties(Election election)
     {
+        std::cout << "Primeiro e último colocados de cada partido:" << std::endl;
 
+        std::string most_vot, least_vot;
+
+        for(PoliticalParty p : election.get_parties_ordered_by_candidates()){
+
+            most_vot = "voto";
+            least_vot = "voto";
+            most_vot = plural_singular_filter(most_vot, p.most_voted_candidate().get_qt_votos());
+            least_vot = plural_singular_filter(least_vot, p.least_voted_candidate().get_qt_votos());
+
+            std::cout << p.get_position() << " - " << p.get_sg() << " - " << p.get_number() << ", " 
+            << p.most_voted_candidate().get_nm_urna_candidato() << " (" << p.most_voted_candidate().get_nr_candidato();
+
+            std::cout.imbue(std::locale("pt_BR.utf8"));
+            std::cout << ", " << p.most_voted_candidate().get_qt_votos() << " " << most_vot << ") / ";
+            std::cout.imbue(std::locale("C"));
+            std::cout << p.least_voted_candidate().get_nm_urna_candidato() << " (" << p.least_voted_candidate().get_nr_candidato();
+            std::cout.imbue(std::locale("pt_BR.utf8"));
+            std::cout << ", " << p.least_voted_candidate().get_qt_votos() << " " << least_vot << ")" << std::endl;
+            std::cout.imbue(std::locale("C"));
+        }
+        std::cout << std::endl;
     }
 
+    //====================================================================//
     void output_service::elected_by_age(Election election)
     {
 
