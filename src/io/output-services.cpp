@@ -32,9 +32,9 @@ namespace output_service{
     //====================================================================//
     void output_service::vacancies_number(Election election)
     {
-        std::cout.imbue(std::locale("pt_BR.utf8"));
-        std::cout << "Número de vagas: " << election.elected_amount() << std::endl;
-        std::cout.imbue(std::locale("C"));
+        cout.imbue(std::locale("pt_BR.utf8"));
+        cout << "Número de vagas: " << election.elected_amount() << endl;
+        cout.imbue(std::locale("C"));
     }
 
     //====================================================================//
@@ -46,98 +46,98 @@ namespace output_service{
         else if(election.get_type() == 7)
             category = "estaduais";
 
-        std::cout << "Deputados " << category <<" eleitos:" << std::endl;
+        cout << "Deputados " << category <<" eleitos:" << endl;
         std::string vot;
 
         for(Candidate c : election.elected_candidates()){
-            std::cout << c.get_elected_position() << " - ";
+            cout << c.get_elected_position() << " - ";
             if(c.get_party()->get_federation() != -1)
-                std::cout << "*";
+                cout << "*";
             
             vot = "voto";
             vot = plural_singular_filter(vot, c.get_qt_votos());
-            std::cout << c.get_nm_urna_candidato() << " (" << c.get_party()->get_sg() << ", ";
+            cout << c.get_nm_urna_candidato() << " (" << c.get_party()->get_sg() << ", ";
 
-            std::cout.imbue(std::locale("pt_BR.utf8"));
-            std::cout << c.get_qt_votos() << " " << vot << ")" << std::endl;
-            std::cout.imbue(std::locale("C"));
+            cout.imbue(std::locale("pt_BR.utf8"));
+            cout << c.get_qt_votos() << " " << vot << ")" << endl;
+            cout.imbue(std::locale("C"));
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 
     //====================================================================//
     void output_service::most_voted_candidates(Election election)
     {
-        std::cout << "Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):" << std::endl;
+        cout << "Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):" << endl;
 
         std::string vot;
         for(Candidate c : election.get_best_candidates()){
-             std::cout << c.get_geral_position() << " - ";
+             cout << c.get_geral_position() << " - ";
              if(c.get_party()->get_federation() != -1)
-                std::cout << "*";
+                cout << "*";
 
             vot = "voto";
             vot = plural_singular_filter(vot, c.get_qt_votos());
-            std::cout << c.get_nm_urna_candidato() << " (" << c.get_party()->get_sg() << ", ";
+            cout << c.get_nm_urna_candidato() << " (" << c.get_party()->get_sg() << ", ";
             
-            std::cout.imbue(std::locale("pt_BR.utf8"));
-            std::cout << c.get_qt_votos() << " " << vot << ")" << std::endl;
-            std::cout.imbue(std::locale("C"));
+            cout.imbue(std::locale("pt_BR.utf8"));
+            cout << c.get_qt_votos() << " " << vot << ")" << endl;
+            cout.imbue(std::locale("C"));
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 
     //====================================================================//
     void output_service::harmed_candidates(Election election)
     {
-        std::cout << "Teriam sido eleitos se a votação fosse majoritária, e não foram eleitos:" << std::endl;
-        std::cout << "(com sua posição no ranking de mais votados)" << std::endl;
+        cout << "Teriam sido eleitos se a votação fosse majoritária, e não foram eleitos:" << endl;
+        cout << "(com sua posição no ranking de mais votados)" << endl;
 
         std::string vot;
         for(Candidate c : election.elected_if_major_election()){
-            std::cout << c.get_geral_position() << " - ";
+            cout << c.get_geral_position() << " - ";
             if(c.get_party()->get_federation() != -1)
-                std::cout << "*";
+                cout << "*";
 
             vot = "voto";
             vot = plural_singular_filter(vot, c.get_qt_votos());
-            std::cout << c.get_nm_urna_candidato() << " (" << c.get_party()->get_sg() << ", ";
+            cout << c.get_nm_urna_candidato() << " (" << c.get_party()->get_sg() << ", ";
             
-            std::cout.imbue(std::locale("pt_BR.utf8"));
-            std::cout << c.get_qt_votos() << " " << vot << ")" << std::endl;
-            std::cout.imbue(std::locale("C"));
+            cout.imbue(std::locale("pt_BR.utf8"));
+            cout << c.get_qt_votos() << " " << vot << ")" << endl;
+            cout.imbue(std::locale("C"));
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 
     //====================================================================//
     void output_service::benefited_candidates(Election election)
     {
-        std::cout << "Eleitos, que se beneficiaram do sistema proporcional:" << std::endl;
-        std::cout << "(com sua posição no ranking de mais votados)" << std::endl;
+        cout << "Eleitos, que se beneficiaram do sistema proporcional:" << endl;
+        cout << "(com sua posição no ranking de mais votados)" << endl;
 
         std::string vot;
 
         for(Candidate c : election.elected_by_proportional()){
-            std::cout << c.get_geral_position() << " - ";
+            cout << c.get_geral_position() << " - ";
             if(c.get_party()->get_federation() != -1)
-                std::cout << "*";
+                cout << "*";
 
             vot = "voto";
             vot = plural_singular_filter(vot, c.get_qt_votos());
-            std::cout << c.get_nm_urna_candidato() << " (" << c.get_party()->get_sg() << ", ";
+            cout << c.get_nm_urna_candidato() << " (" << c.get_party()->get_sg() << ", ";
             
-            std::cout.imbue(std::locale("pt_BR.utf8"));
-            std::cout << c.get_qt_votos() << " " << vot << ")" << std::endl;
-            std::cout.imbue(std::locale("C"));
+            cout.imbue(std::locale("pt_BR.utf8"));
+            cout << c.get_qt_votos() << " " << vot << ")" << endl;
+            cout.imbue(std::locale("C"));
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 
     //====================================================================//
     void output_service::party_voting_and_elected_candidates(Election election)
     {
-        std::cout << "Votação dos partidos e número de candidatos eleitos:" << std::endl;
+        cout << "Votação dos partidos e número de candidatos eleitos:" << endl;
 
         std::string vot, nom, cand, ele;
         for(PoliticalParty p : election.get_parties()){
@@ -151,20 +151,20 @@ namespace output_service{
             cand = plural_singular_filter(cand, p.get_elected_amount());
             ele = plural_singular_filter(ele, p.get_elected_amount());
 
-            std::cout << p.get_position() << " - ";
-            std::cout.imbue(std::locale("pt_BR.utf8"));
-            std::cout << p.get_sg() << " - " << p.get_number() << ", " << p.get_total_votes() << " " << vot
+            cout << p.get_position() << " - ";
+            cout.imbue(std::locale("pt_BR.utf8"));
+            cout << p.get_sg() << " - " << p.get_number() << ", " << p.get_total_votes() << " " << vot
             << " (" << p.get_nominal_votes() << " " << nom <<  " e " << p.get_legend_votes() << " de legenda), "
-            << p.get_elected_amount() << " " << cand << " " << ele << std::endl;
+            << p.get_elected_amount() << " " << cand << " " << ele << endl;
  
-            std::cout.imbue(std::locale("C"));
+            cout.imbue(std::locale("C"));
         }
     }
 
     //====================================================================//
     void output_service::first_and_last_candidates_from_parties(Election election)
     {
-        std::cout << "Primeiro e último colocados de cada partido:" << std::endl;
+        cout << "Primeiro e último colocados de cada partido:" << endl;
 
         std::string most_vot, least_vot;
 
@@ -175,38 +175,84 @@ namespace output_service{
             most_vot = plural_singular_filter(most_vot, p.most_voted_candidate().get_qt_votos());
             least_vot = plural_singular_filter(least_vot, p.least_voted_candidate().get_qt_votos());
 
-            std::cout << p.get_position() << " - " << p.get_sg() << " - " << p.get_number() << ", " 
+            cout << p.get_position() << " - " << p.get_sg() << " - " << p.get_number() << ", " 
             << p.most_voted_candidate().get_nm_urna_candidato() << " (" << p.most_voted_candidate().get_nr_candidato();
 
-            std::cout.imbue(std::locale("pt_BR.utf8"));
-            std::cout << ", " << p.most_voted_candidate().get_qt_votos() << " " << most_vot << ") / ";
-            std::cout.imbue(std::locale("C"));
-            std::cout << p.least_voted_candidate().get_nm_urna_candidato() << " (" << p.least_voted_candidate().get_nr_candidato();
-            std::cout.imbue(std::locale("pt_BR.utf8"));
-            std::cout << ", " << p.least_voted_candidate().get_qt_votos() << " " << least_vot << ")" << std::endl;
-            std::cout.imbue(std::locale("C"));
+            cout.imbue(std::locale("pt_BR.utf8"));
+            cout << ", " << p.most_voted_candidate().get_qt_votos() << " " << most_vot << ") / ";
+            cout.imbue(std::locale("C"));
+            cout << p.least_voted_candidate().get_nm_urna_candidato() << " (" << p.least_voted_candidate().get_nr_candidato();
+            cout.imbue(std::locale("pt_BR.utf8"));
+            cout << ", " << p.least_voted_candidate().get_qt_votos() << " " << least_vot << ")" << endl;
+            cout.imbue(std::locale("C"));
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 
-    //====================================================================//
+    //=============================FUNÇÕES QUE AINDA ESTÃO NO MODELO JAVA=======================================//
     void output_service::elected_by_age(Election election)
     {
+        cout <<"Eleitos, por faixa etária (na data da eleição):" << endl;
 
+        int totalElected = election.elected_amount();
+
+        int f1 = election.elected_amount_by_age(0, 30);
+        int f2 = election.elected_amount_by_age(30, 40);
+        int f3 = election.elected_amount_by_age(40, 50);
+        int f4 = election.elected_amount_by_age(50, 60);
+        int f5 = election.elected_amount_by_age(60, 120);
+
+        float p1 = ((float) f1 / (float) totalElected) * 100;
+        float p2 = ((float) f2 / (float) totalElected) * 100;
+        float p3 = ((float) f3 / (float) totalElected) * 100;
+        float p4 = ((float) f4 / (float) totalElected) * 100;
+        float p5 = ((float) f5 / (float) totalElected) * 100;
+
+        System.out.printf("      Idade < 30: %s (%s%%)\n", nf.format(f1), nfDec.format(p1));
+        System.out.printf("30 <= Idade < 40: %s (%s%%)\n", nf.format(f2), nfDec.format(p2));
+        System.out.printf("40 <= Idade < 50: %s (%s%%)\n", nf.format(f3), nfDec.format(p3));
+        System.out.printf("50 <= Idade < 60: %s (%s%%)\n", nf.format(f4), nfDec.format(p4));
+        System.out.printf("60 <= Idade     : %s (%s%%)\n\n", nf.format(f5), nfDec.format(p5));
     }
 
     void output_service::elected_by_gender(Election election)
     {
+        int totalElected = election.elected_amount();
+        System.out.println("Eleitos, por gênero:");
 
+        int men = election.elected_men();
+        int women = election.elected_women();
+
+        float pmen = ((float) men / (float) totalElected) * 100;
+        float pwomen = ((float) women / (float) totalElected) * 100;
+
+        System.out.printf("Feminino:  %s (%s%%)\n", nf.format(women), nfDec.format(pwomen));
+        System.out.printf("Masculino: %s (%s%%)\n\n", nf.format(men), nfDec.format(pmen));
     }
 
     void output_service::all_voting(Election election)
     {
+        int validVotes = election.get_legend_votes() + election.get_nominal_votes();
+        int nominal = election.get_nominal_votes();
+        int legend = election.get_legend_votes();
 
+        float pNominal = ((float) nominal / (float) validVotes) * 100;
+        float pLegend = ((float) legend / (float) validVotes) * 100;
+
+        System.out.printf("Total de votos válidos:    %s\n", nf.format(validVotes));
+        System.out.printf("Total de votos nominais:   %s (%s%%)\n", nf.format(nominal), nfDec.format(pNominal));
+        System.out.printf("Total de votos de legenda: %s (%s%%)\n", nf.format(legend), nfDec.format(pLegend));
     }
 
+    //ESSA FUNÇÃO ESTÁ NO MODELO C++  
     string output_service::plural_singular_filter(string out, int value)
     {
-        return string();
+        if (value > 1) {
+            if (out == "nominal") {
+                return "nominais";
+            }
+            return out + "s";
+        }
+        return out;
     }
 }
