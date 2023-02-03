@@ -1,4 +1,6 @@
 #include "../../include/io/output-services.hpp"
+
+#include "../../include/exceptions/reports-generation-exception.hpp"
 #include <iostream>
 #include <string>
 
@@ -23,10 +25,31 @@ namespace output_service{
 //public methods==============//
 
 //====================================================================//
-
+    // FALTA FAZER COISA AQUI
     void output_service::generate_reports(Election election) 
     {
+        // Formatando os números no padrão brasileiro
+        Locale localeBr = Locale.forLanguageTag("pt-BR");
+        NumberFormat nf = NumberFormat.getInstance(localeBr);
+        NumberFormat nfDec = NumberFormat.getInstance(localeBr);
+        nfDec.setMinimumFractionDigits(2);
+        nfDec.setMaximumFractionDigits(2);
 
+        try {
+            // Gerando as saídas
+            vacancies_number(election);
+            elected_candidates(election);
+            most_voted_candidates(election);
+            harmed_candidates(election);
+            benefited_candidates(election);
+            party_voting_and_elected_candidates(election);
+            first_and_last_candidates_from_parties(election);
+            elected_by_age(election);
+            elected_by_gender(election);
+            all_voting(election);
+        } catch (exception& e) {
+            throw new reports_generation_exception();
+        }
     }
 
     //====================================================================//
@@ -244,7 +267,7 @@ namespace output_service{
         System.out.printf("Total de votos de legenda: %s (%s%%)\n", nf.format(legend), nfDec.format(pLegend));
     }
 
-    //ESSA FUNÇÃO ESTÁ NO MODELO C++  
+    //ESSA FUNÇÃO ESTÁ CORRETA 
     string output_service::plural_singular_filter(string out, int value)
     {
         if (value > 1) {
