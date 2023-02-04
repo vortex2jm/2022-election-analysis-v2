@@ -158,17 +158,12 @@ namespace input_service {
         int year;
         int nr_candidato;
         int cd_genero;
-        vector<string> date = split(data[42],'/');
         string nm_urna_candidato = data[18];
         string nm_tipo_destino_votos = data[67];
-        Date data_nasc;
+        Date data_nasc(data[42]);
         bool situation;
 
         try {
-            day = stoi(date[0]);
-            month = stoi(date[1]);
-            year = stoi(date[2]);
-            data_nasc = LocalDate.of(year, month, day);
             situation = is_elected_candidate(data[56]);
             nr_candidato = stoi(data[16]);
             cd_genero = stoi(data[45]);
