@@ -20,6 +20,7 @@ private:
 public:
     //constructor
     PoliticalParty(int number, string sg, int federation);
+    bool operator>(const PoliticalParty& party2);
      // ======================Getters==================================//
 
    string get_sg();

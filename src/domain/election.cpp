@@ -74,6 +74,7 @@ list<Candidate> Election::elected_candidates(){
             cands.push_back(*item.second);
     }
     // ORDENAR E SETTAR ELECTED POSITION
+    cands.sort(std::greater<Candidate>());
     return cands;
 }
 
@@ -84,6 +85,7 @@ list<Candidate> Election::get_all_candidates(){
         cands.push_back(*item.second);
     }
     //ORDENAR E SETTAR GERAL POSITION
+    cands.sort(std::greater<Candidate>());
     return cands;
 }
 
@@ -92,12 +94,13 @@ list<Candidate> Election::get_best_candidates(){
     list<Candidate> cands;
     int x=0;
     for(const auto &item : this->candidates){
-        if(x==this->elected_amount() - 1)
+        if(x == this->elected_amount() - 1)
             break;
         cands.push_back(*item.second);
         x++;
     }
     //ORDENAR
+    cands.sort(std::greater<Candidate>());
     return cands;
 }
 
@@ -116,6 +119,7 @@ list<Candidate> Election::elected_if_major_election(){
         }
     }
     //ORDENAR
+    cands.sort(std::greater<Candidate>());
     return cands;
 }
 
@@ -134,6 +138,7 @@ list<Candidate> Election::elected_by_proportional(){
         }
     }
     //ORDENAR
+    cands.sort(std::greater<Candidate>());
     return cands;
 }
 
@@ -144,6 +149,7 @@ list<PoliticalParty> Election::get_parties(){
         parts.push_back(*item.second);
     }
     //ORDENAR E SETTAR POSITION
+    parts.sort(std::greater<PoliticalParty>());
     return parts;
 }
 
@@ -156,6 +162,7 @@ list<PoliticalParty> Election::get_parties_ordered_by_candidates(){
     }
 
     //ORDEAR E SETTAR POSITION
+    parts.sort(std::greater<PoliticalParty>());
     return parts;
 }
 

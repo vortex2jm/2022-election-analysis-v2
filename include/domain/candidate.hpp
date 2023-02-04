@@ -44,7 +44,7 @@ public:
     int get_geral_position();
     bool operator==(const Candidate& cand2) const;
     bool operator>(const Candidate& cand2) const;
-    static bool comparator(const Candidate *a, const Candidate *b);
+    bool candidate_pointer_comparator(const Candidate *a, const Candidate *b);
 };
 
 #endif

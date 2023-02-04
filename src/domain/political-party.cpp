@@ -1,9 +1,27 @@
 #include "../../include/domain/political-party.hpp"
+#include "political-party.hpp"
 
 //constructor
 PoliticalParty::PoliticalParty(int number, string sg, int federation){
 
 }
+
+bool PoliticalParty::operator>(PoliticalParty& party2)
+{
+    int own_total = this->legendVotes + this->get_nominal_votes();
+    int other_total = party2.legendVotes + party2.get_nominal_votes();
+
+    if (own_total > other_total)
+      return true;
+    if (own_total < other_total)
+      return false;
+    if (this->number < party2.number)
+      return true;
+    if (this->number > party2.number)
+      return false;
+    return false;
+  }
+
 // ======================Getters==================================//
 
 string PoliticalParty::get_sg(){
@@ -44,7 +62,7 @@ void PoliticalParty::set_position(int position){
 //ISTO FUNCIONA?
 list<Candidate*> PoliticalParty::get_candidates_list(){
     list<Candidate*> result = this->candidatesList;
-    result.sort(Candidate::comparator);
+    result.sort(Candidate::candidate_pointer_comparator);
     return result;
 }
 
@@ -77,7 +95,7 @@ int PoliticalParty::get_elected_amount(){
  */
 Candidate PoliticalParty::most_voted_candidate(){
     list<Candidate*> ordered_list = this->candidatesList;
-    ordered_list.sort(Candidate::comparator);
+    ordered_list.sort(Candidate::candidate_pointer_comparator);
     return *ordered_list.front();
 }
 
@@ -86,6 +104,6 @@ Candidate PoliticalParty::most_voted_candidate(){
  */
 Candidate PoliticalParty::least_voted_candidate(){
     list<Candidate*> ordered_list = this->candidatesList;
-    ordered_list.sort(Candidate::comparator);
+    ordered_list.sort(Candidate::candidate_pointer_comparator);
     return *ordered_list.back();
 }

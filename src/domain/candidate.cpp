@@ -94,7 +94,7 @@ bool Candidate::operator==(const Candidate& cand2) const{
 bool Candidate::operator>(const Candidate& cand2) const {
     return this->qt_votos > cand2.qt_votos; 
 }
-bool Candidate::comparator(const Candidate *a, const Candidate *b)
+bool Candidate::candidate_pointer_comparator(const Candidate *a, const Candidate *b)
 {
     return *a > *b;
 }
