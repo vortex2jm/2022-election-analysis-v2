@@ -1,4 +1,5 @@
 #include "../../include/domain/candidate.hpp"
+#include "candidate.hpp"
 
 //=========================================//
 Candidate::Candidate(int nr_candidato, string nm_urna_candidato, string nm_tipo_destino_votos, Date dt_nascimento,
@@ -88,4 +89,12 @@ bool Candidate::operator==(const Candidate& cand2) const{
             this->qt_votos == cand2.qt_votos and
             this->elected_position == cand2.elected_position and
             this->geral_position == cand2.geral_position;
+}
+
+bool Candidate::operator>(const Candidate& cand2) const {
+    return this->qt_votos > cand2.qt_votos; 
+}
+bool Candidate::comparator(const Candidate *a, const Candidate *b)
+{
+    return *a > *b;
 }

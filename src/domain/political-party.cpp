@@ -22,7 +22,7 @@ int PoliticalParty::get_position(){
     return this->position;
 }
 int PoliticalParty::get_total_votes(){
-    //TODO
+    return this->legendVotes + get_nominal_votes();
 }
 // ======================Setters==================================//
 
@@ -31,7 +31,6 @@ void PoliticalParty::set_legend_votes(int legendVotes){
 }
 void PoliticalParty::add_candidate(Candidate* candidate){
     this->candidatesList.push_back(candidate);
-    return;
 }
 //TODO
 void PoliticalParty::set_position(int position){
@@ -42,8 +41,11 @@ void PoliticalParty::set_position(int position){
 /**
  * @return Lista de candidatos do partido, ordenados
  */
+//ISTO FUNCIONA?
 list<Candidate*> PoliticalParty::get_candidates_list(){
-    //TODO
+    list<Candidate*> result = this->candidatesList;
+    result.sort(Candidate::comparator);
+    return result;
 }
 
 /**
@@ -74,12 +76,16 @@ int PoliticalParty::get_elected_amount(){
  * @return o candidato mais votado do partido
  */
 Candidate PoliticalParty::most_voted_candidate(){
-    //TODO
+    list<Candidate*> ordered_list = this->candidatesList;
+    ordered_list.sort(Candidate::comparator);
+    return *ordered_list.front();
 }
 
 /**
  * @return o candidato menos votado do partido
  */
 Candidate PoliticalParty::least_voted_candidate(){
-    //TODO
+    list<Candidate*> ordered_list = this->candidatesList;
+    ordered_list.sort(Candidate::comparator);
+    return *ordered_list.back();
 }
