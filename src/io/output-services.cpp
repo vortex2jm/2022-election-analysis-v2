@@ -28,28 +28,28 @@ namespace output_service{
     // FALTA FAZER COISA AQUI
     void output_service::generate_reports(Election election) 
     {
-        // Formatando os números no padrão brasileiro
-        Locale localeBr = Locale.forLanguageTag("pt-BR");
-        NumberFormat nf = NumberFormat.getInstance(localeBr);
-        NumberFormat nfDec = NumberFormat.getInstance(localeBr);
-        nfDec.setMinimumFractionDigits(2);
-        nfDec.setMaximumFractionDigits(2);
+    //     // Formatando os números no padrão brasileiro
+    //     Locale localeBr = Locale.forLanguageTag("pt-BR");
+    //     NumberFormat nf = NumberFormat.getInstance(localeBr);
+    //     NumberFormat nfDec = NumberFormat.getInstance(localeBr);
+    //     nfDec.setMinimumFractionDigits(2);
+    //     nfDec.setMaximumFractionDigits(2);
 
-        try {
-            // Gerando as saídas
-            vacancies_number(election);
-            elected_candidates(election);
-            most_voted_candidates(election);
-            harmed_candidates(election);
-            benefited_candidates(election);
-            party_voting_and_elected_candidates(election);
-            first_and_last_candidates_from_parties(election);
-            elected_by_age(election);
-            elected_by_gender(election);
-            all_voting(election);
-        } catch (exception& e) {
-            throw new reports_generation_exception();
-        }
+    //     try {
+    //         // Gerando as saídas
+    //         vacancies_number(election);
+    //         elected_candidates(election);
+    //         most_voted_candidates(election);
+    //         harmed_candidates(election);
+    //         benefited_candidates(election);
+    //         party_voting_and_elected_candidates(election);
+    //         first_and_last_candidates_from_parties(election);
+    //         elected_by_age(election);
+    //         elected_by_gender(election);
+    //         all_voting(election);
+    //     } catch (exception& e) {
+    //         throw new reports_generation_exception();
+    //     }
     }
 
     //====================================================================//
@@ -215,67 +215,67 @@ namespace output_service{
     //=============================FUNÇÕES QUE AINDA ESTÃO NO MODELO JAVA=======================================//
     void output_service::elected_by_age(Election election)
     {
-        cout <<"Eleitos, por faixa etária (na data da eleição):" << endl;
+        // cout <<"Eleitos, por faixa etária (na data da eleição):" << endl;
 
-        int totalElected = election.elected_amount();
+        // int totalElected = election.elected_amount();
 
-        int f1 = election.elected_amount_by_age(0, 30);
-        int f2 = election.elected_amount_by_age(30, 40);
-        int f3 = election.elected_amount_by_age(40, 50);
-        int f4 = election.elected_amount_by_age(50, 60);
-        int f5 = election.elected_amount_by_age(60, 120);
+        // int f1 = election.elected_amount_by_age(0, 30);
+        // int f2 = election.elected_amount_by_age(30, 40);
+        // int f3 = election.elected_amount_by_age(40, 50);
+        // int f4 = election.elected_amount_by_age(50, 60);
+        // int f5 = election.elected_amount_by_age(60, 120);
 
-        float p1 = ((float) f1 / (float) totalElected) * 100;
-        float p2 = ((float) f2 / (float) totalElected) * 100;
-        float p3 = ((float) f3 / (float) totalElected) * 100;
-        float p4 = ((float) f4 / (float) totalElected) * 100;
-        float p5 = ((float) f5 / (float) totalElected) * 100;
+        // float p1 = ((float) f1 / (float) totalElected) * 100;
+        // float p2 = ((float) f2 / (float) totalElected) * 100;
+        // float p3 = ((float) f3 / (float) totalElected) * 100;
+        // float p4 = ((float) f4 / (float) totalElected) * 100;
+        // float p5 = ((float) f5 / (float) totalElected) * 100;
 
-        System.out.printf("      Idade < 30: %s (%s%%)\n", nf.format(f1), nfDec.format(p1));
-        System.out.printf("30 <= Idade < 40: %s (%s%%)\n", nf.format(f2), nfDec.format(p2));
-        System.out.printf("40 <= Idade < 50: %s (%s%%)\n", nf.format(f3), nfDec.format(p3));
-        System.out.printf("50 <= Idade < 60: %s (%s%%)\n", nf.format(f4), nfDec.format(p4));
-        System.out.printf("60 <= Idade     : %s (%s%%)\n\n", nf.format(f5), nfDec.format(p5));
+        // System.out.printf("      Idade < 30: %s (%s%%)\n", nf.format(f1), nfDec.format(p1));
+        // System.out.printf("30 <= Idade < 40: %s (%s%%)\n", nf.format(f2), nfDec.format(p2));
+        // System.out.printf("40 <= Idade < 50: %s (%s%%)\n", nf.format(f3), nfDec.format(p3));
+        // System.out.printf("50 <= Idade < 60: %s (%s%%)\n", nf.format(f4), nfDec.format(p4));
+        // System.out.printf("60 <= Idade     : %s (%s%%)\n\n", nf.format(f5), nfDec.format(p5));
     }
 
     void output_service::elected_by_gender(Election election)
     {
-        int totalElected = election.elected_amount();
-        System.out.println("Eleitos, por gênero:");
+        // int totalElected = election.elected_amount();
+        // System.out.println("Eleitos, por gênero:");
 
-        int men = election.elected_men();
-        int women = election.elected_women();
+        // int men = election.elected_men();
+        // int women = election.elected_women();
 
-        float pmen = ((float) men / (float) totalElected) * 100;
-        float pwomen = ((float) women / (float) totalElected) * 100;
+        // float pmen = ((float) men / (float) totalElected) * 100;
+        // float pwomen = ((float) women / (float) totalElected) * 100;
 
-        System.out.printf("Feminino:  %s (%s%%)\n", nf.format(women), nfDec.format(pwomen));
-        System.out.printf("Masculino: %s (%s%%)\n\n", nf.format(men), nfDec.format(pmen));
+        // System.out.printf("Feminino:  %s (%s%%)\n", nf.format(women), nfDec.format(pwomen));
+        // System.out.printf("Masculino: %s (%s%%)\n\n", nf.format(men), nfDec.format(pmen));
     }
 
     void output_service::all_voting(Election election)
     {
-        int validVotes = election.get_legend_votes() + election.get_nominal_votes();
-        int nominal = election.get_nominal_votes();
-        int legend = election.get_legend_votes();
+        // int validVotes = election.get_legend_votes() + election.get_nominal_votes();
+        // int nominal = election.get_nominal_votes();
+        // int legend = election.get_legend_votes();
 
-        float pNominal = ((float) nominal / (float) validVotes) * 100;
-        float pLegend = ((float) legend / (float) validVotes) * 100;
+        // float pNominal = ((float) nominal / (float) validVotes) * 100;
+        // float pLegend = ((float) legend / (float) validVotes) * 100;
 
-        System.out.printf("Total de votos válidos:    %s\n", nf.format(validVotes));
-        System.out.printf("Total de votos nominais:   %s (%s%%)\n", nf.format(nominal), nfDec.format(pNominal));
-        System.out.printf("Total de votos de legenda: %s (%s%%)\n", nf.format(legend), nfDec.format(pLegend));
+        // System.out.printf("Total de votos válidos:    %s\n", nf.format(validVotes));
+        // System.out.printf("Total de votos nominais:   %s (%s%%)\n", nf.format(nominal), nfDec.format(pNominal));
+        // System.out.printf("Total de votos de legenda: %s (%s%%)\n", nf.format(legend), nfDec.format(pLegend));
     }
 
     //ESSA FUNÇÃO ESTÁ CORRETA 
     string output_service::plural_singular_filter(string out, int value)
     {
-        if (value > 1) {
-            if (out == "nominal") {
-                return "nominais";
-            }
-            return out + "s";
-        }
-        return out;
+        // if (value > 1) {
+        //     if (out == "nominal") {
+        //         return "nominais";
+        //     }
+        //     return out + "s";
+        // }
+        // return out;
     }
 }
