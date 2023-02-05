@@ -6,6 +6,7 @@
 #include "../include/date.hpp"
 
 using std::exception;
+using std::cout;
 
 int main(int argc, char const *argv[])
 {
@@ -13,38 +14,26 @@ int main(int argc, char const *argv[])
     string estadual_check = "--estadual";
     string federal_check = "--federal";
 
-    if (argv[0] == estadual_check)
+    if (argv[1] == estadual_check)
         type = 7;
-    else if (argv[0] == federal_check)
+    else if (argv[1] == federal_check)
         type = 6;
     else
-        throw exception();
+        exit(1);
 
     // Criando buffer de entrada dos arquivos
     ifstream stream_candidates, buffer_votes;
-    try {
-        stream_candidates = in_service::create_reading_stream(argv[1]);
-    } catch (exception& e) {
-        throw exception();
-    }
-    try {
-        buffer_votes = in_service::create_reading_stream(argv[2]);
-    } catch (exception& e) {
-        throw exception();
-    }
+    stream_candidates = in_service::create_reading_stream(argv[2]);
+    buffer_votes = in_service::create_reading_stream(argv[3]);
 
     // Instanciando a eleição
-    Election* election = new Election(type, argv[3]);
+    Election election = Election(type, argv[4]);
 
-    try {
-        // Processando os dados de entrada
-        in_service::process_candidates_file(stream_candidates, *election);
-        in_service::process_votes_file(buffer_votes, *election);
+    // Processando os dados de entrada
+    in_service::process_candidates_file(stream_candidates, election);
+    in_service::process_votes_file(buffer_votes, election);
+    // Gerando a saída
+    out_services::generate_reports(election);
 
-        // Gerando a saída
-        out_services::generate_reports(*election);
-    } catch (exception& e) {
-        throw e;
-    }
     return 0;
 }

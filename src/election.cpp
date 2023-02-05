@@ -58,6 +58,7 @@ map<int, PoliticalParty *> Election::get_legends_candidates_parties()
 }
 //==============================================================================//
 PoliticalParty* Election::add_partie(int number, string sg, int federation){
+    
     PoliticalParty * p = new PoliticalParty(number, sg, federation);
     this->parties.insert(make_pair(number, p));
     return p;    

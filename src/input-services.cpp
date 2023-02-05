@@ -37,22 +37,28 @@
             getline(stream, current_line); // elimina a linha de legenda
 
             while (stream.good()) {
-
+                
                 // Removendo aspas e separando por ";"
-                getline(stream,current_line);
+                getline(stream, current_line);
+                if(current_line.size() == 0)
+                    break;
+
                 current_data = input_formatter(current_line);
 
                 // Atualizando mapa de partidos
-                party = update_parties(election, current_data);
+                party = update_parties(election, current_data);              
 
                 // caso candidatura válida
+
                 if (candidate_is_valid(current_data[13], current_data[68], election.get_type())) {
                     update_candidates(election, *party, current_data);
                     continue;
                 }
+
                 // caso candidatura inválida mas candidato de interesse(importante para
                 // processamento de potenciais votos de legenda)
                 //@todo
+
                 if (election.get_type() == stoi(current_data[13])
                         && current_data[67] == "Válido (legenda)") {
                     update_invalid_candidates(election, *party, current_data);
@@ -66,7 +72,11 @@
 
             getline(stream, current_line); // Removendo linha de cabeçalho
             while (stream.good()) {
-
+                
+                getline(stream, current_line);
+                if(current_line.size() == 0)
+                    break;
+                    
                 // Removendo aspas e separando por ";"
                 current_data = input_formatter(current_line);
 
@@ -102,25 +112,28 @@
 
     PoliticalParty* update_parties(Election election, vector<string> data){
         int nr_partido, nr_federacao;
-       string sg_partido = data[28];
+        string sg_partido = data[28];
 
-            nr_partido = stoi(data[27]);
-            nr_federacao = stoi(data[30]);
+        nr_partido = stoi(data[27]);
+        nr_federacao = stoi(data[30]);
 
         // Se o mapa já possui o partido, ele apenas retorna o partido sem criar um novo
         if (election.get_parties_map().count(nr_partido)) {
             return election.get_parties_map().at(nr_partido);
         }
+
         return election.add_partie(nr_partido, sg_partido, nr_federacao);
     }
 
     vector<string> input_formatter(string line){
         vector<string> current_data = split(line, ';');
-           for (int i= 0; i <  (int)current_data.size(); i++) {
-                current_data[i] = removeChar(current_data[i], '\"');
-            }
-            return current_data;
+        for(string &s : current_data){
+            s = s.substr(1,s.length() - 2);
+        }
+        return current_data;
     }
+
+
     void update_candidates(Election election, PoliticalParty party, vector<string> data){
         
         int nr_candidato;

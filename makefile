@@ -59,11 +59,11 @@ runfederal: all
 	@ echo $(CYAN)
 	@ echo Running federal analysis...
 	@ ./$(EXECUTABLE) --federal candidatos.csv votacao.csv 02/10/2022
-	@ echo (RESET_COLOR)
+	@ echo $(RESET_COLOR)
 
 
 runestadual: all
 	@	echo $(CYAN)
 	@	echo Running estadual analysis...
 	@	./$(EXECUTABLE) --estadual candidatos.csv votacao.csv 02/10/2022
-	@	echo (RESET_COLOR)
+	@	echo $(RESET_COLOR)
