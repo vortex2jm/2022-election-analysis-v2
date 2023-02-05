@@ -1,60 +1,52 @@
-EXECUTABLE = election.out
-COMPILER = g++
-CPP_FILES = $(wildcard .src/**/*.cpp)
-O_FILES = $(patsubst %.cpp, %.o, $(CPP_FILES))
-CPP_VERSION = -std=c++17
-FLAGS = -Wall -g 
-OBJ_DIR = objects
+# VERIFICAR SE PRECISA TERMINAR DE AJUSTAR O MAKEFILE
 
-YELLOW = "\033[1;33m"
-RED = "\033[1;31m" 
-CYAN = "\033[1;36m"
-PURPLE = "\033[1;35m"
-RESET_COLOR = "\033[0m"
+NAME_PROGRAM   = deputados
+MAIN_FILE_NAME = main
+SRC            = ./src
+INCLUDE        = ./include
+OBJ            = ./obj
+FLAGS          = -lm -pedantic -Wall 
+COMPILER       = g++   
 
-all: $(EXECUTABLE)
+C_FILES        = $(wildcard $(SRC)/*.cpp | $(SRC)/**/*.cpp)
+OBJ_PATH_FILES = $(patsubst $(SRC)%,$(OBJ)%,$(C_FILES))
+OBJ_FILES      = $(patsubst %.cpp,%.o,$(OBJ_PATH_FILES))
 
-$(EXECUTABLE): create_directories $(O_FILES)
-	@echo $(YELLOW)
-	@echo Creating executable file...
-	@$(COMPILER) -o $@ $(OBJ_DIR)/$^
-	@echo $(RESET_COLOR)
+all: clean create_dir $(OBJ_FILES) create_final_progam
 
-create_directories:
-	@echo $(PURPLE)
-	@echo Creating and organizing directories...
-	@mkdir $(OBJ_DIR)
-	@echo $(RESET_COLOR)
+create_final_progam: $(NAME_PROGRAM)
 
-main.o: main.cpp
-	@echo $(YELLOW)
-	@echo Compilling main.cpp...
-	@$(COMPILER) $(CPP_VERSION) -c $^ $(FLAGS)
-	@mv $@ ./$(OBJ_DIR)
-	@echo $(RESET_COLOR)
+# rule for main file
+$(OBJ)/$(MAIN_FILE_NAME).o: $(SRC)/$(MAIN_FILE_NAME).cpp
+	@ echo "\033[1;32m"
+	@ echo "Compiling main program... "
+	@ $(COMPILER) -c $< -o $@ $(FLAGS)
+	@ echo "\033[0m"
 
-%.o: $(CPP_FILES)
-	@echo $(YELLOW)
-	@echo Compilling $(CPP_FILES) files...
-	@$(COMPILER) $(CPP_VERSION) -c $^ $(FLAGS)
-	@mv ./src/**/$(O_FILES) $(OBJ_DIR)
-	@echo $(RESET_COLOR)
+# rule for all o files
+$(OBJ)/%.o: $(SRC)/%.cpp 
+	@ echo "\033[1;32m"
+	@ echo "Compiling program $<..."
+	@ $(COMPILER) -c $< -I $(INCLUDE) -o $@ $(FLAGS)
+	@ echo "\033[0m"
 
-runfederal: $(EXECUTABLE)
-	@echo $(CYAN)
-	@echo Running federal analysis...
-	@./$(EXECUTAVEL) --federal candidatos.csv votacao.csv 02/10/2022
-	@echo (RESET_COLOR)
 
-runestadual: $(EXECUTABLE)
-	@echo $(CYAN)
-	@echo Running estadual analysis...
-	@./$(EXECUTAVEL) --estadual candidatos.csv votacao.csv 02/10/2022
-	@echo (RESET_COLOR)
+# rule for create_final_progam
+$(NAME_PROGRAM): 
+	@ echo "\033[1;32m"
+	@ echo "Creating executable..."
+	@ $(COMPILER) $< $(OBJ)/*.o -o $@ $(FLAGS)
+	@ echo "\033[0m"
 
-clean: 
-	@echo $(RED)
-	@echo Removing temporary files and executable...
-	@rm -rf $(EXECUTABLE) $(OBJ_DIR)
-	@clear
-	@echo $(RESET_COLOR)
+# # create all needed directories
+create_dir: 
+	@ echo "\033[1;32m"
+	@ echo "Creating $(OBJ) directory...\n"
+	@ mkdir $(OBJ)
+	@ echo "\033[0m"
+
+clean:
+	@ echo "\033[1;35m"
+	@ echo "Removing temporary files..."
+	@ rm -rf $(OBJ) $(NAME_PROGRAM)
+	@ echo "\033[0m"
