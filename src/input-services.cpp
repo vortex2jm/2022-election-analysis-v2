@@ -1,14 +1,15 @@
-#include "../include/input-services.hpp"
-#include "../include/political-party.hpp"
-#include <iostream>
+#include <vector>
 #include <sstream>
 #include <fstream>
-#include <vector>
+#include <iostream>
+#include "input-services.hpp"
+#include "../include/input-services.hpp"
+#include "../include/political-party.hpp"
 
     //public methods=============//
-    ifstream create_reading_stream(string file);
-    void process_candidates_file(ifstream uffer, Election election);
-    void process_votes_file(ifstream buffer, Election election);
+    ifstream in_service::create_reading_stream(string file);
+    void in_service::process_candidates_file(ifstream uffer, Election election);
+    void in_service::process_votes_file(ifstream buffer, Election election);
 
     //private methods============//
     bool candidate_is_valid(string cd_cargo, string cd_detalhe_situacao_cand, int type);
@@ -24,12 +25,12 @@
     string removeChar(string input, char character);
 
    //===========================================================================================//
-    ifstream create_reading_stream(string file){
+    ifstream in_service::create_reading_stream(string file){
         ifstream buffer(file);
        return buffer;
     }
 
-    void process_candidates_file(ifstream stream, Election election){
+    void in_service::process_candidates_file(ifstream stream, Election election){
         string current_line;
         vector<string> current_data;
         PoliticalParty *party;
@@ -60,7 +61,7 @@
             }
     }
     
-    void process_votes_file(ifstream stream, Election election){
+    void in_service::process_votes_file(ifstream stream, Election election){
         string current_line;
         vector<string> current_data;
 
@@ -205,3 +206,17 @@
         }
         return result;
     }
+
+std::vector<int> in_service::separate_by_slash(std::string date){
+
+  int day = stoi(date.substr(0,1));
+  int month = stoi(date.substr(3,4));
+  int year = stoi(date.substr(6,7));
+
+  std::vector<int> separated_date;
+  separated_date.push_back(day);
+  separated_date.push_back(month);
+  separated_date.push_back(year);
+
+  return separated_date;
+} 
