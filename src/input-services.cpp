@@ -159,7 +159,8 @@ void process_valid_candidates_votes(Election &election, vector<string> data){
         nr_votavel = stoi(data[19]);
         qt_votos = stoi(data[21]);
     // Se o número é de um candidato, conta como voto nominal
-    if (election.get_candidates_map().count(nr_votavel)) {
+
+    if (election.get_candidates_map().count(nr_votavel) != 0) {
         election.get_candidates_map().at(nr_votavel)->set_qt_votos(qt_votos);
         election.set_nominal_votes(qt_votos);
         return;

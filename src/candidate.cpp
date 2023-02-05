@@ -10,6 +10,7 @@ Candidate::Candidate(int nr_candidato, string nm_urna_candidato, string nm_tipo_
     this->cd_sit_tot_turno = cd_sit_tot_turno;
     this->cd_genero = cd_genero;
     this->party = party;
+    this->qt_votos = 0;
 }
 
 //=========================================//
