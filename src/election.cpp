@@ -118,7 +118,7 @@ list<Candidate> Election::get_best_candidates() const{
     list<Candidate> cands;
     int x=0;
     for(Candidate c : this->get_all_candidates()){
-        if(x == this->elected_amount() - 1)
+        if(x == this->elected_amount())
             break;
         cands.push_back(c);
         x++;
@@ -130,14 +130,14 @@ list<Candidate> Election::get_best_candidates() const{
 //==============================================================================//
 list<Candidate> Election::elected_if_major_election() const{
     list<Candidate> cands;
-    bool flag;
+    
     for(Candidate c: this->get_best_candidates()){
-        flag = true;
         for(Candidate c2: this->elected_candidates()){
-            if(c == c2)
-                flag = false;
-        }
-        if(flag){
+            if(c2 == c){
+                cout << c2.get_nm_urna_candidato() << " / " << c.get_nm_urna_candidato() << endl;
+                continue;   
+            }
+            
             cands.push_back(c);
         }
     }

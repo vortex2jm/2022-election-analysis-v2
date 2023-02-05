@@ -86,9 +86,9 @@ bool Candidate::operator==(const Candidate& cand2) const{
             this->cd_sit_tot_turno == cand2.cd_sit_tot_turno and
             this->cd_genero == cand2.cd_genero and
             this->party == cand2.party and
-            this->qt_votos == cand2.qt_votos and
-            this->elected_position == cand2.elected_position and
-            this->geral_position == cand2.geral_position;
+            this->qt_votos == cand2.qt_votos;
+            // this->elected_position == cand2.elected_position and
+            // this->geral_position == cand2.geral_position;
 }
 
 bool Candidate::operator>(const Candidate& cand2) const{
