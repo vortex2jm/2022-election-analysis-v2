@@ -5,22 +5,16 @@
 
 class Date {
 
+private:
   int day;
   int month;
   int year;
 
-  public:
-
+public:
   Date(std::string date);
-  int compare_to(Date date);
-  int until(Date);
+  int until(const Date &date) const;
   bool operator==(const Date& date2) const;
   bool operator>(const Date& date2) const;
 };
-
-namespace date{
-  std::vector<int> separate_by_slash(std::string date); 
-}
-// Adicionar este método no arquivo de inputservices
 
 #endif
