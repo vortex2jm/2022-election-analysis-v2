@@ -3,6 +3,8 @@
 
 #include "./election.hpp"
 
-void generate_reports(Election election);
+namespace out_services{
+  void generate_reports(const Election &election);
+}
 
 #endif
