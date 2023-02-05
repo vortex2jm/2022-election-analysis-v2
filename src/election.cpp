@@ -86,19 +86,30 @@ list<Candidate> Election::elected_candidates() const{
         if(item.second->get_cd_sit_tot_turno())
             cands.push_back(*item.second);
     }
-    // ORDENAR E SETTAR ELECTED POSITION
+
     cands.sort(std::greater<Candidate>());
+    int x=1;
+    for(Candidate &c : cands){
+        c.set_elected_position(x);
+        x++;
+    }
     return cands;
 }
 
 //==============================================================================//
-list<Candidate> Election::get_all_candidates(){
+list<Candidate> Election::get_all_candidates() const {
     list<Candidate> cands;
     for(const auto &item : this->candidates){
         cands.push_back(*item.second);
     }
-    //ORDENAR E SETTAR GERAL POSITION
+
     cands.sort(std::greater<Candidate>());
+
+    int x=1;
+    for(Candidate &c : cands){
+        c.set_geral_position(x);
+        x++;
+    }
     return cands;
 }
 
@@ -106,13 +117,12 @@ list<Candidate> Election::get_all_candidates(){
 list<Candidate> Election::get_best_candidates() const{
     list<Candidate> cands;
     int x=0;
-    for(const auto &item : this->candidates){
+    for(Candidate c : this->get_all_candidates()){
         if(x == this->elected_amount() - 1)
             break;
-        cands.push_back(*item.second);
+        cands.push_back(c);
         x++;
     }
-    //ORDENAR
     cands.sort(std::greater<Candidate>());
     return cands;
 }
@@ -131,7 +141,6 @@ list<Candidate> Election::elected_if_major_election() const{
             cands.push_back(c);
         }
     }
-    //ORDENAR
     cands.sort(std::greater<Candidate>());
     return cands;
 }
@@ -150,7 +159,6 @@ list<Candidate> Election::elected_by_proportional() const{
             cands.push_back(c);
         }
     }
-    //ORDENAR
     cands.sort(std::greater<Candidate>());
     return cands;
 }
@@ -161,8 +169,13 @@ list<PoliticalParty> Election::get_parties() const{
     for(const auto &item : this->parties){
         parts.push_back(*item.second);
     }
-    //ORDENAR E SETTAR POSITION
+
     parts.sort(std::greater<PoliticalParty>());
+    int x = 1;
+    for(PoliticalParty &p : parts){
+        p.set_position(x);
+        x++;
+    }
     return parts;
 }
 
@@ -174,8 +187,12 @@ list<PoliticalParty> Election::get_parties_ordered_by_candidates() const{
             parts.push_back(p);
     }
 
-    //ORDEAR E SETTAR POSITION
     parts.sort(PoliticalParty::party_comparator_by_candidate);
+    int x = 1;
+    for(PoliticalParty &p : parts){
+        p.set_position(x);
+        x++;
+    }
     return parts;
 }
 

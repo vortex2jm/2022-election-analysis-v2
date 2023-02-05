@@ -49,7 +49,7 @@ public:
     map<int, PoliticalParty*> get_legends_candidates_parties();
     
     list<Candidate> elected_candidates() const;
-    list<Candidate> get_all_candidates();
+    list<Candidate> get_all_candidates() const;
     list<Candidate> get_best_candidates() const;
     list<Candidate> elected_if_major_election() const;
     list<Candidate> elected_by_proportional() const;
