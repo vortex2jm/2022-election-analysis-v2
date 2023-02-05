@@ -6,17 +6,17 @@ Election::Election(int type, string date) : current_date(date){
 }
 
 //==============================================================================//
-int Election::get_nominal_votes(){
+int Election::get_nominal_votes() const{
     return this->nominal_votes;
 }
 
 //==============================================================================//
-int Election::get_legend_votes(){
+int Election::get_legend_votes() const{
     return this->legend_votes;
 }
 
 //==============================================================================//
-int Election::get_type(){
+int Election::get_type() const{
     return this->type;
 }
 
@@ -57,7 +57,7 @@ void Election::add_legends_candidates_parties(int key, PoliticalParty * value){
 }
 
 //==============================================================================//
-int Election::elected_amount(){
+int Election::elected_amount() const{
     int result = 0;
     for(const auto &item : this->candidates){
         if(item.second->get_cd_sit_tot_turno())
@@ -67,7 +67,7 @@ int Election::elected_amount(){
 }
 
 //==============================================================================//
-list<Candidate> Election::elected_candidates(){
+list<Candidate> Election::elected_candidates() const{
     list<Candidate> cands;
     for(const auto &item : this->candidates){
         if(item.second->get_cd_sit_tot_turno())
@@ -90,7 +90,7 @@ list<Candidate> Election::get_all_candidates(){
 }
 
 //==============================================================================//
-list<Candidate> Election::get_best_candidates(){
+list<Candidate> Election::get_best_candidates() const{
     list<Candidate> cands;
     int x=0;
     for(const auto &item : this->candidates){
@@ -105,7 +105,7 @@ list<Candidate> Election::get_best_candidates(){
 }
 
 //==============================================================================//
-list<Candidate> Election::elected_if_major_election(){
+list<Candidate> Election::elected_if_major_election() const{
     list<Candidate> cands;
     bool flag;
     for(Candidate c: this->get_best_candidates()){
@@ -124,7 +124,7 @@ list<Candidate> Election::elected_if_major_election(){
 }
 
 //==============================================================================//
-list<Candidate> Election::elected_by_proportional(){
+list<Candidate> Election::elected_by_proportional() const{
     list<Candidate> cands;
     bool flag;
     for(Candidate c: this->elected_candidates()){
@@ -143,7 +143,7 @@ list<Candidate> Election::elected_by_proportional(){
 }
 
 //==============================================================================//
-list<PoliticalParty> Election::get_parties(){
+list<PoliticalParty> Election::get_parties() const{
     list<PoliticalParty> parts;
     for(const auto &item : this->parties){
         parts.push_back(*item.second);
@@ -154,7 +154,7 @@ list<PoliticalParty> Election::get_parties(){
 }
 
 //==============================================================================//
-list<PoliticalParty> Election::get_parties_ordered_by_candidates(){
+list<PoliticalParty> Election::get_parties_ordered_by_candidates() const{
     list<PoliticalParty> parts;
     for(PoliticalParty p : this->get_parties()){
         if(p.get_total_votes() > 0 && p.get_candidates_list().size() != 0)
@@ -167,7 +167,7 @@ list<PoliticalParty> Election::get_parties_ordered_by_candidates(){
 }
 
 //==============================================================================//
-int Election::elected_amount_by_age(int start, int end){
+int Election::elected_amount_by_age(int start, int end) const{
     int total = 0;
     int diff = 0;
     for(Candidate c : this->elected_candidates()){
@@ -180,7 +180,7 @@ int Election::elected_amount_by_age(int start, int end){
 }
 
 //==============================================================================//
-int Election::elected_men(){
+int Election::elected_men() const{
     int total = 0;
     for(Candidate c : this->elected_candidates()){
         if(c.get_cd_genero() == MAN)
@@ -190,7 +190,7 @@ int Election::elected_men(){
 }
 
 //==============================================================================//
-int Election::elected_women(){
+int Election::elected_women() const{
     int total = 0;
     for(Candidate c : this->elected_candidates()){
         if(c.get_cd_genero() == WOMAN)
