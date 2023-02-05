@@ -28,52 +28,52 @@ void Candidate::set_geral_position(int geralPosition){
 }
 
 //=========================================//
-int Candidate::get_nr_candidato(){
+int Candidate::get_nr_candidato() const{
     return this->nr_candidato;
 }
 
 //=========================================//
-bool Candidate::get_cd_sit_tot_turno(){
+bool Candidate::get_cd_sit_tot_turno() const{
     return this->cd_sit_tot_turno;
 }
 
 //=========================================//
-int Candidate::get_qt_votos(){
+int Candidate::get_qt_votos() const{
     return this->qt_votos;
 }
 
 //=========================================//
-Date Candidate::get_dt_nascimento(){
+Date Candidate::get_dt_nascimento() const{
     return this->dt_nascimento;
 }
 
 //=========================================//
-int Candidate::get_cd_genero(){
+int Candidate::get_cd_genero() const{
     return this->cd_genero;
 }
 
 //=========================================//
-int Candidate::get_elected_position(){
+int Candidate::get_elected_position() const{
     return this->elected_position;
 }
 
 //=========================================//
-PoliticalParty* Candidate::get_party(){
+PoliticalParty* Candidate::get_party() const{
     return this->party;
 }
 
 //=========================================//
-string Candidate::get_nm_urna_candidato(){
+string Candidate::get_nm_urna_candidato() const{
     return this->nm_urna_candidato;
 }
 
 //=========================================//
-string Candidate::get_nm_tipo_destino_votos(){
+string Candidate::get_nm_tipo_destino_votos() const{
     return this->nm_tipo_destino_votos;
 }
 
 //=========================================//
-int Candidate::get_geral_position(){
+int Candidate::get_geral_position() const{
     return this->geral_position;
 }
 
@@ -96,7 +96,7 @@ bool Candidate::operator>(const Candidate& cand2) const{
     }
     return this->qt_votos > cand2.qt_votos; 
 }
-bool Candidate::candidate_pointer_comparator(const Candidate *a, const Candidate *b)
+bool Candidate::candidate_pointer_comparator(const Candidate * const a, const Candidate * const b)
 {
     return *a > *b;
 }
