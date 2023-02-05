@@ -44,6 +44,18 @@ void Election::add_candidate(int nr_candidato, string nm_urna_candidato, string 
     party->add_candidate(cand);
 }
 
+map<int, Candidate *> Election::get_candidates_map()
+{
+    return this->candidates;
+}
+map<int, PoliticalParty *> Election::get_parties_map()
+{
+    return this->parties;
+}
+map<int, PoliticalParty *> Election::get_legends_candidates_parties()
+{
+    return this->legends_candidates_parties;
+}
 //==============================================================================//
 PoliticalParty* Election::add_partie(int number, string sg, int federation){
     PoliticalParty * p = new PoliticalParty(number, sg, federation);

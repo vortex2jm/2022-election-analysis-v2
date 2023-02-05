@@ -42,7 +42,7 @@ public:
     void set_parties(map<int, PoliticalParty> parties);
     void add_legends_candidates_parties(int key, PoliticalParty * value);
     void add_candidate(int nr_candidato, string nm_urna_candidato, string nm_tipo_destino_votos, Date dt_nascimento,
-            bool cd_sit_tot_turno, int cd_genero, PoliticalParty * party);
+                        bool cd_sit_tot_turno, int cd_genero, PoliticalParty * party);
     
     map<int, Candidate*> get_candidates_map();
     map<int, PoliticalParty*> get_parties_map();

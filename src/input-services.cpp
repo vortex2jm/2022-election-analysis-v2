@@ -7,13 +7,13 @@
 
     //public methods=============//
     ifstream in_service::create_reading_stream(string file);
-    void in_service::process_candidates_file(ifstream uffer, Election election);
-    void in_service::process_votes_file(ifstream buffer, Election election);
+    void in_service::process_candidates_file(ifstream stream, Election& election);
+    void in_service::process_votes_file(ifstream stream, Election& election);
 
     //private methods============//
     bool candidate_is_valid(string cd_cargo, string cd_detalhe_situacao_cand, int type);
     bool vote_is_valid(string cd_cago, string nr_voavel, int type);
-    PoliticalParty * update_parties(Election elecion, vector<string> data);
+    PoliticalParty * update_parties(Election election, vector<string> data);
     vector<string> input_formatter(string line);
     void update_candidates(Election electin, PoliticalParty party, vector<string> data);
     void update_invalid_candidates(Election election, PoliticalParty party, vector<string> data);
@@ -29,7 +29,7 @@
        return buffer;
     }
 
-    void in_service::process_candidates_file(ifstream stream, Election election){
+    void in_service::process_candidates_file(ifstream stream, Election& election){
         string current_line;
         vector<string> current_data;
         PoliticalParty *party;
@@ -60,7 +60,7 @@
             }
     }
     
-    void in_service::process_votes_file(ifstream stream, Election election){
+    void in_service::process_votes_file(ifstream stream, Election& election){
         string current_line;
         vector<string> current_data;
 
@@ -116,15 +116,13 @@
 
     vector<string> input_formatter(string line){
         vector<string> current_data = split(line, ';');
-           for (int i= 0; i <  current_data.size(); i++) {
+           for (int i= 0; i <  (int)current_data.size(); i++) {
                 current_data[i] = removeChar(current_data[i], '\"');
             }
             return current_data;
     }
     void update_candidates(Election election, PoliticalParty party, vector<string> data){
-        int day;
-       int month;
-        int year;
+        
         int nr_candidato;
         int cd_genero;
         string nm_urna_candidato = data[18];
