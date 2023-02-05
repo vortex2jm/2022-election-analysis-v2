@@ -3,8 +3,6 @@
 #define MAN 2
 #define WOMAN 4
 
-using std::string;
-
 #include <list>
 #include <map>
 #include <list>
@@ -12,6 +10,8 @@ using std::string;
 #include "./candidate.hpp"
 #include "./political-party.hpp"
 #include "./date.hpp"
+
+using std::string;
 
 class Election
 {
