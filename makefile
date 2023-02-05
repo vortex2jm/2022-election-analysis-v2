@@ -1,11 +1,10 @@
-# Variables
-EXECUTABLE   	 = deputados
-SRC            = ./src
-INCLUDE        = ./include
-OBJ            = ./obj
-FLAGS          = -lm -pedantic -Wall -g
-ADDITIONAL_FLAGS = -Wextra -O2
-COMPILER       = g++   
+EXECUTABLE       = deputados
+SRC              = ./src
+INCLUDE          = ./include
+OBJ              = ./obj
+FLAGS            = -lm -pedantic -Wall -g
+ADD_FLAGS        = -Wextra -O2
+COMPILER         = g++   
 COMPILER_VERSION = -std=c++17
 
 # Path and extesions
@@ -31,14 +30,12 @@ create_dir:
 	@ mkdir $(OBJ)
 	@ echo $(RESET_COLOR)
 
-
 # Compiling cpp files
 $(OBJ)/%.o: $(SRC)/%.cpp 
 	@ echo $(YELLOW)
 	@ echo "Compiling file $<..."
 	@ $(COMPILER) $(COMPILER_VERSION) -c $< -o $@ $(FLAGS)
 	@ echo $(RESET_COLOR)
-
 
 # Creating executable
 $(EXECUTABLE): 
@@ -47,23 +44,23 @@ $(EXECUTABLE):
 	@ $(COMPILER) $< $(OBJ)/*.o -o $@ $(FLAGS)
 	@ echo $(RESET_COLOR)
 
-
+# Cleaning workspace
 clean:
 	@ echo $(RED)
 	@ echo "Cleaning workspace..."
 	@ rm -rf $(OBJ) $(EXECUTABLE)
 	@ echo $(RESET_COLOR)
 
-
+# Federal analysis
 runfederal: all
 	@ echo $(CYAN)
 	@ echo Running federal analysis...
-	@ ./$(EXECUTABLE) --federal candidatos.csv votacao.csv 02/10/2022
 	@ echo $(RESET_COLOR)
+	@ ./$(EXECUTABLE) --federal candidatos.csv votacao.csv 02/10/2022
 
-
+# Estadual analysis
 runestadual: all
-	@	echo $(CYAN)
-	@	echo Running estadual analysis...
-	@	./$(EXECUTABLE) --estadual candidatos.csv votacao.csv 02/10/2022
-	@	echo $(RESET_COLOR)
+	@ echo $(CYAN)
+	@ echo Running estadual analysis...
+	@ echo $(RESET_COLOR)
+	@ ./$(EXECUTABLE) --estadual candidatos.csv votacao.csv 02/10/2022
