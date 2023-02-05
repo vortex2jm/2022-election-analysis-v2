@@ -1,52 +1,69 @@
-# VERIFICAR SE PRECISA TERMINAR DE AJUSTAR O MAKEFILE
-
-NAME_PROGRAM   = deputados
-MAIN_FILE_NAME = main
+# Variables
+EXECUTABLE   	 = deputados
 SRC            = ./src
 INCLUDE        = ./include
 OBJ            = ./obj
-FLAGS          = -lm -pedantic -Wall 
+FLAGS          = -lm -pedantic -Wall -g
+ADDITIONAL_FLAGS = -Wextra -O2
 COMPILER       = g++   
+COMPILER_VERSION = -std=c++17
 
+# Path and extesions
 C_FILES        = $(wildcard $(SRC)/*.cpp | $(SRC)/**/*.cpp)
 OBJ_PATH_FILES = $(patsubst $(SRC)%,$(OBJ)%,$(C_FILES))
 OBJ_FILES      = $(patsubst %.cpp,%.o,$(OBJ_PATH_FILES))
 
-all: clean create_dir $(OBJ_FILES) create_final_progam
+# Colors
+YELLOW = "\033[1;33m"
+RED = "\033[1;31m" 
+CYAN = "\033[1;36m"
+PURPLE = "\033[1;35m"
+RESET_COLOR = "\033[0m"
 
-create_final_progam: $(NAME_PROGRAM)
+#===========================================================#
+# Main target
+all: clean create_dir $(OBJ_FILES) $(EXECUTABLE)
 
-# rule for main file
-$(OBJ)/$(MAIN_FILE_NAME).o: $(SRC)/$(MAIN_FILE_NAME).cpp
-	@ echo "\033[1;32m"
-	@ echo "Compiling main program... "
-	@ $(COMPILER) -c $< -o $@ $(FLAGS)
-	@ echo "\033[0m"
-
-# rule for all o files
-$(OBJ)/%.o: $(SRC)/%.cpp 
-	@ echo "\033[1;32m"
-	@ echo "Compiling program $<..."
-	@ $(COMPILER) -c $< -I $(INCLUDE) -o $@ $(FLAGS)
-	@ echo "\033[0m"
-
-
-# rule for create_final_progam
-$(NAME_PROGRAM): 
-	@ echo "\033[1;32m"
-	@ echo "Creating executable..."
-	@ $(COMPILER) $< $(OBJ)/*.o -o $@ $(FLAGS)
-	@ echo "\033[0m"
-
-# # create all needed directories
+# Creatig objects directory
 create_dir: 
-	@ echo "\033[1;32m"
+	@ echo $(PURPLE)
 	@ echo "Creating $(OBJ) directory...\n"
 	@ mkdir $(OBJ)
-	@ echo "\033[0m"
+	@ echo $(RESET_COLOR)
+
+
+# Compiling cpp files
+$(OBJ)/%.o: $(SRC)/%.cpp 
+	@ echo $(YELLOW)
+	@ echo "Compiling file $<..."
+	@ $(COMPILER) $(COMPILER_VERSION) -c $< -o $@ $(FLAGS)
+	@ echo $(RESET_COLOR)
+
+
+# Creating executable
+$(EXECUTABLE): 
+	@ echo $(YELLOW)
+	@ echo "Creating executable..."
+	@ $(COMPILER) $< $(OBJ)/*.o -o $@ $(FLAGS)
+	@ echo $(RESET_COLOR)
+
 
 clean:
-	@ echo "\033[1;35m"
-	@ echo "Removing temporary files..."
-	@ rm -rf $(OBJ) $(NAME_PROGRAM)
-	@ echo "\033[0m"
+	@ echo $(RED)
+	@ echo "Cleaning workspace..."
+	@ rm -rf $(OBJ) $(EXECUTABLE)
+	@ echo $(RESET_COLOR)
+
+
+runfederal: all
+	@ echo $(CYAN)
+	@ echo Running federal analysis...
+	@ ./$(EXECUTABLE) --federal candidatos.csv votacao.csv 02/10/2022
+	@ echo (RESET_COLOR)
+
+
+runestadual: all
+	@	echo $(CYAN)
+	@	echo Running estadual analysis...
+	@	./$(EXECUTABLE) --estadual candidatos.csv votacao.csv 02/10/2022
+	@	echo (RESET_COLOR)
