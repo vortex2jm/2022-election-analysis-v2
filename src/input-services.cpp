@@ -7,8 +7,8 @@
 
     //public methods=============//
     ifstream in_service::create_reading_stream(string file);
-    void in_service::process_candidates_file(ifstream stream, Election& election);
-    void in_service::process_votes_file(ifstream stream, Election& election);
+    void in_service::process_candidates_file(ifstream& stream, Election& election);
+    void in_service::process_votes_file(ifstream& stream, Election& election);
 
     //private methods============//
     bool candidate_is_valid(string cd_cargo, string cd_detalhe_situacao_cand, int type);
@@ -29,7 +29,7 @@
        return buffer;
     }
 
-    void in_service::process_candidates_file(ifstream stream, Election& election){
+    void in_service::process_candidates_file(ifstream& stream, Election& election){
         string current_line;
         vector<string> current_data;
         PoliticalParty *party;
@@ -60,7 +60,7 @@
             }
     }
     
-    void in_service::process_votes_file(ifstream stream, Election& election){
+    void in_service::process_votes_file(ifstream& stream, Election& election){
         string current_line;
         vector<string> current_data;
 
