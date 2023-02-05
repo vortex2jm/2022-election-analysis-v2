@@ -3,7 +3,7 @@
 
 #include <fstream>
 #include <string>
-#include "../domain/election.hpp"
+#include "./election.hpp"
 
 namespace input_services{
     

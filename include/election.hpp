@@ -12,7 +12,7 @@ using namespace std;
 #include <string>
 #include "./candidate.hpp"
 #include "./political-party.hpp"
-#include "../date/date.hpp"
+#include "./date.hpp"
 
 class Election
 {

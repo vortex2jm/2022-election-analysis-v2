@@ -1,5 +1,6 @@
-#include "../../include/date/date.hpp"
+#include "../include/date.hpp"
 #include <string>
+#include <iostream>
 
 Date::Date(std::string date){
   std::vector<int> formatted_date = date::separate_by_slash(date);
@@ -24,6 +25,16 @@ int Date::compare_to(Date date)
   if(this->day > date.day)
     return -1;
   return 0;
+}
+
+bool Date::operator>(const Date& date2) const{
+  if(this->year < date2.year)
+    return true;
+  if(this->month < date2.month)
+    return true;
+  if(this->day < date2.day)
+    return true;
+  return false;
 }
 
 //=====================================================//

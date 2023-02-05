@@ -1,6 +1,7 @@
 #ifndef date_h
 #define date_h
 #include <vector>
+#include <string>
 
 class Date {
 
@@ -11,9 +12,10 @@ class Date {
   public:
 
   Date(std::string date);
-  int compare_to(Date);
+  int compare_to(Date date);
   int until(Date);
   bool operator==(const Date& date2) const;
+  bool operator>(const Date& date2) const;
 };
 
 namespace date{

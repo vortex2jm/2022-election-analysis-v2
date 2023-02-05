@@ -1,5 +1,5 @@
-#include "../../include/domain/election.hpp"
-#include "../../include/date/date.hpp"
+#include "../include/election.hpp"
+#include "../include/date.hpp"
 
 Election::Election(int type, string date) : current_date(date){
     this->type = type;
@@ -162,7 +162,7 @@ list<PoliticalParty> Election::get_parties_ordered_by_candidates(){
     }
 
     //ORDEAR E SETTAR POSITION
-    parts.sort(std::greater<PoliticalParty>());
+    parts.sort(PoliticalParty::party_comparator_by_candidate);
     return parts;
 }
 

@@ -1,5 +1,4 @@
-#include "../../include/domain/candidate.hpp"
-#include "candidate.hpp"
+#include "../include/candidate.hpp"
 
 //=========================================//
 Candidate::Candidate(int nr_candidato, string nm_urna_candidato, string nm_tipo_destino_votos, Date dt_nascimento,
@@ -55,7 +54,7 @@ int Candidate::get_cd_genero(){
 
 //=========================================//
 int Candidate::get_elected_position(){
-    this->elected_position;
+    return this->elected_position;
 }
 
 //=========================================//
@@ -91,7 +90,10 @@ bool Candidate::operator==(const Candidate& cand2) const{
             this->geral_position == cand2.geral_position;
 }
 
-bool Candidate::operator>(const Candidate& cand2) const {
+bool Candidate::operator>(const Candidate& cand2) const{
+    if(this->qt_votos == cand2.qt_votos){
+        return this->dt_nascimento > cand2.dt_nascimento;
+    }
     return this->qt_votos > cand2.qt_votos; 
 }
 bool Candidate::candidate_pointer_comparator(const Candidate *a, const Candidate *b)

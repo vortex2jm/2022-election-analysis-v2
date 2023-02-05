@@ -2,11 +2,13 @@
 #define CANDIDATE_H
 
 #include <iostream>
-#include <ctime>
+#include <string>
 #include "./political-party.hpp"
-#include "../date/date.hpp"
+#include "./date.hpp"
 
 using namespace std;
+
+class PoliticalParty;
 
 class Candidate
 {
@@ -44,7 +46,7 @@ public:
     int get_geral_position();
     bool operator==(const Candidate& cand2) const;
     bool operator>(const Candidate& cand2) const;
-    bool candidate_pointer_comparator(const Candidate *a, const Candidate *b);
+    static bool candidate_pointer_comparator(const Candidate *a, const Candidate *b);
 };
 
 #endif

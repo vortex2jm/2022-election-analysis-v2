@@ -6,6 +6,8 @@ using namespace std;
 #include <list>
 #include "./candidate.hpp"
 
+class Candidate;
+
 class PoliticalParty
 {
 
@@ -20,7 +22,8 @@ private:
 public:
     //constructor
     PoliticalParty(int number, string sg, int federation);
-    bool operator>(const PoliticalParty& party2);
+    bool operator>(const PoliticalParty party2) const;
+    static bool party_comparator_by_candidate(PoliticalParty &p1, PoliticalParty &p2);
      // ======================Getters==================================//
 
    string get_sg();
@@ -44,7 +47,7 @@ public:
   /**
    * @return número de votos nominais
    */
-   int get_nominal_votes();
+   int get_nominal_votes() const;
 
   /**
    * @return a quantidade de candidatos do partido que foram eleitos

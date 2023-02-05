@@ -1,12 +1,11 @@
-#include "../../include/domain/political-party.hpp"
-#include "political-party.hpp"
+#include "../include/political-party.hpp"
 
 //constructor
 PoliticalParty::PoliticalParty(int number, string sg, int federation){
 
 }
 
-bool PoliticalParty::operator>(PoliticalParty& party2)
+bool PoliticalParty::operator>(const PoliticalParty party2) const
 {
     int own_total = this->legendVotes + this->get_nominal_votes();
     int other_total = party2.legendVotes + party2.get_nominal_votes();
@@ -20,7 +19,21 @@ bool PoliticalParty::operator>(PoliticalParty& party2)
     if (this->number > party2.number)
       return false;
     return false;
-  }
+}
+
+bool PoliticalParty::party_comparator_by_candidate(PoliticalParty &p1, PoliticalParty &p2) {
+    if(p1.most_voted_candidate().get_qt_votos() > p2.most_voted_candidate().get_qt_votos())
+        return true;
+
+    if(p1.most_voted_candidate().get_qt_votos() == p2.most_voted_candidate().get_qt_votos()){
+        if(p1.most_voted_candidate().get_dt_nascimento() > p2.most_voted_candidate().get_dt_nascimento())
+            return true;
+        
+        if(p1.most_voted_candidate().get_party()->get_number() < p2.most_voted_candidate().get_party()->get_number())
+            return true;
+    }
+    return false;
+}
 
 // ======================Getters==================================//
 
@@ -69,7 +82,7 @@ list<Candidate*> PoliticalParty::get_candidates_list(){
 /**
  * @return número de votos nominais
  */
-int PoliticalParty::get_nominal_votes(){
+int PoliticalParty::get_nominal_votes() const{
     int total=0;
     for(Candidate* c : this->candidatesList){
         total += c->get_qt_votos();

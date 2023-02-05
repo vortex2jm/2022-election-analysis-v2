@@ -1,11 +1,10 @@
-#include "../../include/io/output-services.hpp"
+#include "../include/output-services.hpp"
 
-#include "../../include/exceptions/reports-generation-exception.hpp"
 #include <iostream>
 #include <string>
 
 //VERIFICAR SE PRECISA SETTAR O LOCALE PARA C
-namespace output_service{
+
 
     void generate_reports(Election election);
 
@@ -26,7 +25,7 @@ namespace output_service{
 
 //====================================================================//
     // FALTA FAZER COISA AQUI
-    void output_service::generate_reports(Election election) 
+    void generate_reports(Election election) 
     {
         // Gerando as saídas
         vacancies_number(election);
@@ -42,7 +41,7 @@ namespace output_service{
     }
 
     //====================================================================//
-    void output_service::vacancies_number(Election election)
+    void vacancies_number(Election election)
     {
         cout.imbue(locale("pt_BR.utf8"));
         cout << "Número de vagas: " << election.elected_amount() << endl;
@@ -50,7 +49,7 @@ namespace output_service{
     }
 
     //====================================================================//
-    void output_service::elected_candidates(Election election)
+    void elected_candidates(Election election)
     {
         string category = "";
         if(election.get_type() == 6)
@@ -78,7 +77,7 @@ namespace output_service{
     }
 
     //====================================================================//
-    void output_service::most_voted_candidates(Election election)
+    void most_voted_candidates(Election election)
     {
         cout << "Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):" << endl;
 
@@ -100,7 +99,7 @@ namespace output_service{
     }
 
     //====================================================================//
-    void output_service::harmed_candidates(Election election)
+    void harmed_candidates(Election election)
     {
         cout << "Teriam sido eleitos se a votação fosse majoritária, e não foram eleitos:" << endl;
         cout << "(com sua posição no ranking de mais votados)" << endl;
@@ -123,7 +122,7 @@ namespace output_service{
     }
 
     //====================================================================//
-    void output_service::benefited_candidates(Election election)
+    void benefited_candidates(Election election)
     {
         cout << "Eleitos, que se beneficiaram do sistema proporcional:" << endl;
         cout << "(com sua posição no ranking de mais votados)" << endl;
@@ -147,7 +146,7 @@ namespace output_service{
     }
 
     //====================================================================//
-    void output_service::party_voting_and_elected_candidates(Election election)
+    void party_voting_and_elected_candidates(Election election)
     {
         cout << "Votação dos partidos e número de candidatos eleitos:" << endl;
 
@@ -174,7 +173,7 @@ namespace output_service{
     }
 
     //====================================================================//
-    void output_service::first_and_last_candidates_from_parties(Election election)
+    void first_and_last_candidates_from_parties(Election election)
     {
         cout << "Primeiro e último colocados de cada partido:" << endl;
 
@@ -202,7 +201,7 @@ namespace output_service{
     }
 
     //=============================FUNÇÕES QUE AINDA ESTÃO NO MODELO JAVA=======================================//
-    void output_service::elected_by_age(Election election)
+    void elected_by_age(Election election)
     {
         cout <<"Eleitos, por faixa etária (na data da eleição):" << endl;
 
@@ -229,7 +228,7 @@ namespace output_service{
         cout.imbue(locale("C"));
     }
 
-    void output_service::elected_by_gender(Election election)
+    void elected_by_gender(Election election)
     {
         int total_elected = election.elected_amount();
         cout << "Eleitos, por gênero:" << endl;
@@ -246,7 +245,7 @@ namespace output_service{
         cout.imbue(locale("C"));
     }
 
-    void output_service::all_voting(Election election)
+    void all_voting(Election election)
     {
         int valid_votes = election.get_legend_votes() + election.get_nominal_votes();
         int nominal = election.get_nominal_votes();
@@ -263,7 +262,7 @@ namespace output_service{
     }
 
     //ESSA FUNÇÃO ESTÁ CORRETA 
-    string output_service::plural_singular_filter(string out, int value)
+    string plural_singular_filter(string out, int value)
     {
         if(value > 1){
             if(out == "nominal") {
@@ -273,4 +272,3 @@ namespace output_service{
         }
         return out;
     }
-}
