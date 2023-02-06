@@ -21,13 +21,13 @@ string plural_singular_filter(string out, int value);
 void out_services::generate_reports(const Election &election) 
 {
     // Gerando as saídas
-    /*vacancies_number(election);
+    vacancies_number(election);
     elected_candidates(election);
     most_voted_candidates(election);
     harmed_candidates(election);
     benefited_candidates(election);
     party_voting_and_elected_candidates(election);
-    first_and_last_candidates_from_parties(election);*/
+    first_and_last_candidates_from_parties(election);
     elected_by_age(election);
     elected_by_gender(election);
     all_voting(election);
@@ -36,7 +36,7 @@ void out_services::generate_reports(const Election &election)
 void vacancies_number(const Election &election)
 {
     cout.imbue(locale("pt_BR.utf8"));
-    cout << "Número de vagas: " << election.elected_amount() << endl;
+    cout << "Número de vagas: " << election.elected_amount() << endl << endl;
     cout.imbue(locale("C"));
 }
 
@@ -114,7 +114,9 @@ void benefited_candidates(const Election &election)
     cout << "(com sua posição no ranking de mais votados)" << endl;
     string vot;
     for(Candidate c : election.elected_by_proportional()){
+
         cout << c.get_geral_position() << " - ";
+        
         if(c.get_party()->get_federation() != -1)
             cout << "*";
         vot = "voto";
@@ -150,6 +152,7 @@ void party_voting_and_elected_candidates(const Election &election)
 
         cout.imbue(locale("C"));
     }
+    cout << endl;
 }
 
 //====================================================================//
@@ -178,7 +181,7 @@ void first_and_last_candidates_from_parties(const Election &election)
 //====================================================================//
 void elected_by_age(const Election &election)
 {
-    cout <<"Eleitos, por faixa etária (na data da eleição):" << endl;
+    cout <<"Eleitos, por faixa etária (na data da eleição):" << endl << endl;
     int totalElected = election.elected_amount();
     int f1 = election.elected_amount_by_age(0, 30);
     int f2 = election.elected_amount_by_age(30, 40);
@@ -191,11 +194,11 @@ void elected_by_age(const Election &election)
     float p4 = ((float) f4 / (float) totalElected) * 100;
     float p5 = ((float) f5 / (float) totalElected) * 100;
     cout.imbue(locale("pt_BR.utf8"));
-    cout << "      Idade < 30: " << f1 << " (" << p1 << "%)" << endl;
-    cout << "30 <= Idade < 40: " << f2 << " (" << p2 << "%)" << endl;
-    cout << "40 <= Idade < 50: " << f3 << " (" << p3 << "%)" << endl;
-    cout << "50 <= Idade < 60: " << f4 << " (" << p4 << "%)" << endl;
-    cout << "60 <= Idade     : " << f5 << " (" << p5 << "%)" << endl;
+    cout << fixed << setprecision(2) << "      Idade < 30: " << f1 << " (" << p1 << "%)" << endl;
+    cout << fixed << setprecision(2) << "30 <= Idade < 40: " << f2 << " (" << p2 << "%)" << endl;
+    cout << fixed << setprecision(2) << "40 <= Idade < 50: " << f3 << " (" << p3 << "%)" << endl;
+    cout << fixed << setprecision(2) << "50 <= Idade < 60: " << f4 << " (" << p4 << "%)" << endl;
+    cout << fixed << setprecision(2) << "60 <= Idade     : " << f5 << " (" << p5 << "%)" << endl;
     cout.imbue(locale("C"));
 }
 
@@ -209,8 +212,8 @@ void elected_by_gender(const Election &election)
     float pmen = ((float)men / (float)total_elected) * 100;
     float pwomen = ((float)women / (float)total_elected) * 100;
     cout.imbue(locale("pt_BR.utf8"));
-    cout << "Feminino: " << women << " (" << pwomen << "%)" << endl;
-    cout << "Masculino: " << men << " (" << pmen << "%)" << endl;
+    cout << fixed << setprecision(2) << "Feminino: " << women << " (" << pwomen << "%)" << endl;
+    cout << fixed << setprecision(2) << "Masculino: " << men << " (" << pmen << "%)" << endl << endl;
     cout.imbue(locale("C"));
 }
 
@@ -226,7 +229,7 @@ void all_voting(const Election &election)
     cout.imbue(locale("pt_BR.utf8"));
     cout << "Total de votos válidos:    " << valid_votes << endl;
     cout << "Total de votos nominais:   " << fixed << setprecision(2) << nominal << " (" << p_nominal << "%)" << endl;
-    cout << "Total de votos de legenda: " << fixed << setprecision(2) << legend << " (" << p_legend << "%)" << endl;
+    cout << "Total de votos de legenda: " << fixed << setprecision(2) << legend << " (" << p_legend << "%)" << endl << endl;
     cout.imbue(locale("C"));
 }
 

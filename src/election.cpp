@@ -83,23 +83,6 @@ int Election::elected_amount() const{
 }
 
 //==============================================================================//
-list<Candidate> Election::elected_candidates() const{
-    list<Candidate> cands;
-    for(const auto &item : this->candidates){
-        if(item.second->get_cd_sit_tot_turno())
-            cands.push_back(*item.second);
-    }
-
-    cands.sort(std::greater<Candidate>());
-    int x=1;
-    for(Candidate &c : cands){
-        c.set_elected_position(x);
-        x++;
-    }
-    return cands;
-}
-
-//==============================================================================//
 list<Candidate> Election::get_all_candidates() const {
     list<Candidate> cands;
     for(const auto &item : this->candidates){
@@ -111,6 +94,23 @@ list<Candidate> Election::get_all_candidates() const {
     int x=1;
     for(Candidate &c : cands){
         c.set_geral_position(x);
+        x++;
+    }
+    return cands;
+}
+
+//==============================================================================//
+list<Candidate> Election::elected_candidates() const{
+    list<Candidate> cands;
+    for(Candidate c : this->get_all_candidates()){
+        if(c.get_cd_sit_tot_turno())
+            cands.push_back(c);
+    }
+
+    cands.sort(std::greater<Candidate>());
+    int x=1;
+    for(Candidate &c : cands){
+        c.set_elected_position(x);
         x++;
     }
     return cands;
@@ -207,6 +207,7 @@ int Election::elected_amount_by_age(int start, int end) const{
 
     for(Candidate c : electeds){
         diff = c.get_dt_nascimento().until(this->current_date);
+
         if(diff >= start && diff < end){
             total++;
         }

@@ -131,12 +131,14 @@ void update_candidates(Election &election, PoliticalParty * party, vector<string
     string nm_urna_candidato = data[18];
     string nm_tipo_destino_votos = data[67];
     Date data_nasc(data[42]);
-    cout << data[42] << endl;
+
+    // cout << data[42] << endl;
+
     bool situation;
-        situation = is_elected_candidate(data[56]);
-        nr_candidato = stoi(data[16]);
-        cd_genero = stoi(data[45]);
-        election.add_candidate(nr_candidato, nm_urna_candidato, nm_tipo_destino_votos, data_nasc, situation, cd_genero, party);
+    situation = is_elected_candidate(data[56]);
+    nr_candidato = stoi(data[16]);
+    cd_genero = stoi(data[45]);
+    election.add_candidate(nr_candidato, nm_urna_candidato, nm_tipo_destino_votos, data_nasc, situation, cd_genero, party);
         
 }
 

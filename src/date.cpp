@@ -31,20 +31,21 @@ bool Date::operator==(const Date& date2) const{
 
 //=====================================================//
 int Date::until(const Date& date) const{
-  int age = this->year - date.year;
-  if(this->month < date.month){
+  int age = date.year - this->year;
+  
+  if(date.month < this->month){
     age--;
   }
-  else if(this->month == date.month){
-    if(this->day < date.day){
+  else if(date.month == this->month){
+    if(date.day < this->day){
       age--;
     }
   }
   return age;
 }
 
-string Date::toString() const
+string Date::to_string() const
 {
-  string a = to_string(this->day) + '/' + to_string(this->month) + '/' + to_string(this->year);
+  string a = std::to_string(this->day) + '/' + std::to_string(this->month) + '/' + std::to_string(this->year);
   return a;
 }

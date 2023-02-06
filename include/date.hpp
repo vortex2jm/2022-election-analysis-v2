@@ -13,7 +13,7 @@ private:
 public:
   Date(std::string date);
   int until(const Date &date) const;
-  std::string toString() const;
+  std::string to_string() const;
   bool operator==(const Date& date2) const;
   bool operator>(const Date& date2) const;
 };
