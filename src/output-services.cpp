@@ -181,7 +181,7 @@ void first_and_last_candidates_from_parties(const Election &election)
 //====================================================================//
 void elected_by_age(const Election &election)
 {
-    cout <<"Eleitos, por faixa etária (na data da eleição):" << endl << endl;
+    cout <<"Eleitos, por faixa etária (na data da eleição):" << endl;
     int totalElected = election.elected_amount();
     int f1 = election.elected_amount_by_age(0, 30);
     int f2 = election.elected_amount_by_age(30, 40);
@@ -200,6 +200,7 @@ void elected_by_age(const Election &election)
     cout << fixed << setprecision(2) << "50 <= Idade < 60: " << f4 << " (" << p4 << "%)" << endl;
     cout << fixed << setprecision(2) << "60 <= Idade     : " << f5 << " (" << p5 << "%)" << endl;
     cout.imbue(locale("C"));
+    cout << endl;
 }
 
 //====================================================================//

@@ -22,16 +22,19 @@ int main(int argc, char const *argv[])
         exit(1);
 
     // Criando buffer de entrada dos arquivos
-    ifstream stream_candidates, buffer_votes;
+    ifstream stream_candidates, stream_votes;
     stream_candidates = in_service::create_reading_stream(argv[2]);
-    buffer_votes = in_service::create_reading_stream(argv[3]);
+    stream_votes = in_service::create_reading_stream(argv[3]);
 
     // Instanciando a eleição
     Election election = Election(type, argv[4]);
 
     // Processando os dados de entrada
     in_service::process_candidates_file(stream_candidates, election);
-    in_service::process_votes_file(buffer_votes, election);
+    in_service::process_votes_file(stream_votes, election);
+    stream_candidates.close();
+    stream_votes.close();
+    
     // Gerando a saída
     out_services::generate_reports(election);
 
