@@ -1,6 +1,7 @@
 #include "../include/output-services.hpp"
 #include <iostream>
 #include <string>
+#include <iomanip>
 
 void out_services::generate_reports(const Election &election);
 //private methods=============//
@@ -20,13 +21,13 @@ string plural_singular_filter(string out, int value);
 void out_services::generate_reports(const Election &election) 
 {
     // Gerando as saídas
-    vacancies_number(election);
+    /*vacancies_number(election);
     elected_candidates(election);
     most_voted_candidates(election);
     harmed_candidates(election);
     benefited_candidates(election);
     party_voting_and_elected_candidates(election);
-    first_and_last_candidates_from_parties(election);
+    first_and_last_candidates_from_parties(election);*/
     elected_by_age(election);
     elected_by_gender(election);
     all_voting(election);
@@ -90,6 +91,7 @@ void harmed_candidates(const Election &election)
     cout << "Teriam sido eleitos se a votação fosse majoritária, e não foram eleitos:" << endl;
     cout << "(com sua posição no ranking de mais votados)" << endl;
     string vot;
+
     for(Candidate c : election.elected_if_major_election()){
         cout << c.get_geral_position() << " - ";
         if(c.get_party()->get_federation() != -1)
@@ -219,12 +221,12 @@ void all_voting(const Election &election)
     int nominal = election.get_nominal_votes();
     int legend = election.get_legend_votes();
     float p_nominal = ((float)nominal / (float)valid_votes) * 100;
-    int p_legend = ((float)legend / (float)valid_votes) * 100;
+    float p_legend = ((float)legend / (float)valid_votes) * 100;
     
     cout.imbue(locale("pt_BR.utf8"));
     cout << "Total de votos válidos:    " << valid_votes << endl;
-    cout << "Total de votos nominais:   " << nominal << " (" << p_nominal << "%)" << endl;
-    cout << "Total de votos de legenda: " << legend << " (" << p_legend << "%)" << endl;
+    cout << "Total de votos nominais:   " << fixed << setprecision(2) << nominal << " (" << p_nominal << "%)" << endl;
+    cout << "Total de votos de legenda: " << fixed << setprecision(2) << legend << " (" << p_legend << "%)" << endl;
     cout.imbue(locale("C"));
 }
 

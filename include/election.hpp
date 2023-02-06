@@ -18,8 +18,8 @@ class Election
 
 private:
     int type;
-    int legend_votes = 0;
-    int nominal_votes = 0;
+    int legend_votes;
+    int nominal_votes;
     map<int, Candidate*> candidates;
     map<int, PoliticalParty*> parties;
     map<int, PoliticalParty*> legends_candidates_parties;

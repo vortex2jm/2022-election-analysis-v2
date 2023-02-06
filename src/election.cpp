@@ -1,8 +1,11 @@
 #include "../include/election.hpp"
 #include "../include/date.hpp"
+#include <algorithm>
 
 Election::Election(int type, string date) : current_date(date){
     this->type = type;
+    this->legend_votes = 0;
+    this->nominal_votes = 0;
 }
 
 //==============================================================================//
@@ -130,14 +133,14 @@ list<Candidate> Election::get_best_candidates() const{
 //==============================================================================//
 list<Candidate> Election::elected_if_major_election() const{
     list<Candidate> cands;
-    
-    for(Candidate c: this->get_best_candidates()){
-        for(Candidate c2: this->elected_candidates()){
-            if(c2 == c){
-                cout << c2.get_nm_urna_candidato() << " / " << c.get_nm_urna_candidato() << endl;
-                continue;   
-            }
-            
+    list<Candidate> best_candidates = this->get_best_candidates();
+    list<Candidate> elected_candidates = this->elected_candidates();
+
+    //if candidate is one of the most voted...
+    for(Candidate c: best_candidates){
+        //AND is NOT elected...
+        if(!count(elected_candidates.begin(), elected_candidates.end(), c)){
+            //he/she would be elected in a major election
             cands.push_back(c);
         }
     }
@@ -200,7 +203,9 @@ list<PoliticalParty> Election::get_parties_ordered_by_candidates() const{
 int Election::elected_amount_by_age(int start, int end) const{
     int total = 0;
     int diff = 0;
-    for(Candidate c : this->elected_candidates()){
+    list<Candidate> electeds = this->elected_candidates();
+
+    for(Candidate c : electeds){
         diff = c.get_dt_nascimento().until(this->current_date);
         if(diff >= start && diff < end){
             total++;
