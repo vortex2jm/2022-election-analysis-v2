@@ -5,12 +5,13 @@ PoliticalParty::PoliticalParty(int number, string sg, int federation){
     this->number = number;
     this->sg = sg;
     this->federation = federation;
+    this->legend_votes = 0;
 }
 
 bool PoliticalParty::operator>(const PoliticalParty party2) const
 {
-    int own_total = this->legendVotes + this->get_nominal_votes();
-    int other_total = party2.legendVotes + party2.get_nominal_votes();
+    int own_total = this->legend_votes + this->get_nominal_votes();
+    int other_total = party2.legend_votes + party2.get_nominal_votes();
 
     if (own_total > other_total)
       return true;
@@ -43,7 +44,7 @@ string PoliticalParty::get_sg() const{
     return this->sg;
 }
 int PoliticalParty::get_legend_votes() const{
-    return this->legendVotes;
+    return this->legend_votes;
 }
 int PoliticalParty::get_federation() const{
     return this->federation;
@@ -55,12 +56,12 @@ int PoliticalParty::get_position() const{
     return this->position;
 }
 int PoliticalParty::get_total_votes() const{
-    return this->legendVotes + get_nominal_votes();
+    return this->legend_votes + get_nominal_votes();
 }
 // ======================Setters==================================//
 
-void PoliticalParty::set_legend_votes(int legendVotes){
-    this->legendVotes += legendVotes;
+void PoliticalParty::set_legend_votes(int legend_votes){
+    this->legend_votes += legend_votes;
 }
 void PoliticalParty::add_candidate(Candidate* candidate){
     this->candidatesList.push_back(candidate);

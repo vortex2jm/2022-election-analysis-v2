@@ -15,7 +15,7 @@ private:
     int number;
     int position;
     int federation;
-    int legendVotes;
+    int legend_votes;
     
     string sg;
 

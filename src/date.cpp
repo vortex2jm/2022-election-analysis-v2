@@ -3,11 +3,12 @@
 #include "../include/date.hpp"
 #include "../include/input-services.hpp"
 
-Date::Date(std::string date){
-  std::vector<int> formatted_date = in_service::separate_by_slash(date);
-  this->day = formatted_date[0];
-  this->month = formatted_date[1];
-  this->year = formatted_date[2];
+Date::Date(string date){
+  vector<string> formatted_date = in_service::split(date, '/');
+
+  this->day = stoi(formatted_date[0]);
+  this->month = stoi(formatted_date[1]);
+  this->year = stoi(formatted_date[2]);
 }
 
 //=====================================================//
@@ -29,17 +30,21 @@ bool Date::operator==(const Date& date2) const{
 }
 
 //=====================================================//
-int Date::until(const Date &date) const{
+int Date::until(const Date& date) const{
   int age = this->year - date.year;
   if(this->month < date.month){
     age--;
-    return age;
   }
-  if(this->month == date.month){
+  else if(this->month == date.month){
     if(this->day < date.day){
       age--;
-      return age;
     }
   }
   return age;
+}
+
+string Date::toString() const
+{
+  string a = to_string(this->day) + '/' + to_string(this->month) + '/' + to_string(this->year);
+  return a;
 }

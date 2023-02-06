@@ -5,6 +5,8 @@
 #include "../include/input-services.hpp"
 #include "../include/political-party.hpp"
 
+using namespace in_service;
+
 //public methods=============//
 ifstream in_service::create_reading_stream(string file);
 void in_service::process_candidates_file(ifstream& stream, Election& election);
@@ -19,7 +21,7 @@ void update_invalid_candidates(Election &election, PoliticalParty * party, vecto
 bool is_elected_candidate(string sit);
 void process_valid_candidates_votes(Election &election, vector<string> data);
 void process_invalid_candidates_votes(Election &election, vector<string> data);
-vector<std::string> split(const string &input, char delimiter);
+//vector<string> split(const string& input, char delimiter);
 string removeChar(string input, char character);
 
 //===========================================================================================//
@@ -129,6 +131,7 @@ void update_candidates(Election &election, PoliticalParty * party, vector<string
     string nm_urna_candidato = data[18];
     string nm_tipo_destino_votos = data[67];
     Date data_nasc(data[42]);
+    cout << data[42] << endl;
     bool situation;
         situation = is_elected_candidate(data[56]);
         nr_candidato = stoi(data[16]);
@@ -185,16 +188,6 @@ void process_invalid_candidates_votes(Election &election, vector<string> data){
     }
 }
 
-//===========================================================================================//
-vector<std::string> split(const string &input, char delimiter) {
-    vector<std::string> result;
-   string token;
-   stringstream stream(input);
-   while (std::getline(stream, token, delimiter)) {
-        result.push_back(token);
-    }
-    return result;
-}
 
 //===========================================================================================//
 string removeChar(string input, char character) {
@@ -220,4 +213,17 @@ std::vector<int> in_service::separate_by_slash(std::string date){
   separated_date.push_back(year);
 
   return separated_date;
-} 
+}
+
+//===========================================================================================//
+
+vector<string> in_service::split(const string &input, char delimiter)
+{
+    vector<string> result;
+    string token;
+    stringstream stream(input);
+    while (std::getline(stream, token, delimiter)) {
+            result.push_back(token);
+        }
+    return result;
+}

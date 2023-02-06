@@ -25,7 +25,7 @@ private:
     string nm_tipo_destino_votos;
 
     Date dt_nascimento;
-    PoliticalParty * party;
+    PoliticalParty* party;
 
 public:
     Candidate(int nrCandidato, string nmUrnaCandidato, string nmTipoDestinoVotos, Date dtNascimento,
