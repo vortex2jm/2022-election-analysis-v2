@@ -236,6 +236,8 @@ int Election::elected_women() const{
 }
 
 //==============================================================================//
+// EM MANUTENÇÃO
+//############################################
 Election::~Election(){
     // for(Candidate* pt : this->candidates_pointers()){
     //     delete pt;
@@ -256,3 +258,4 @@ list<Candidate*> Election::candidates_pointers() const{
     }
     return pts;
 }
+//############################################

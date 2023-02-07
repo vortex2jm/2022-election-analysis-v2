@@ -59,8 +59,12 @@ public:
     Date get_current_date();
     PoliticalParty* add_partie(int number, string sg, int federation);
 
+
+    // EM MANUTENÇÃO
+    //############################################
     ~Election();
     list<Candidate*> candidates_pointers() const;
+    //############################################
 };
 
 #endif // ELECTION_H
