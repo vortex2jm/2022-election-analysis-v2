@@ -213,7 +213,7 @@ void elected_by_gender(const Election &election)
     float pmen = ((float)men / (float)total_elected) * 100;
     float pwomen = ((float)women / (float)total_elected) * 100;
     cout.imbue(locale("pt_BR.utf8"));
-    cout << fixed << setprecision(2) << "Feminino: " << women << " (" << pwomen << "%)" << endl;
+    cout << fixed << setprecision(2) << "Feminino:  " << women << " (" << pwomen << "%)" << endl;
     cout << fixed << setprecision(2) << "Masculino: " << men << " (" << pmen << "%)" << endl << endl;
     cout.imbue(locale("C"));
 }
