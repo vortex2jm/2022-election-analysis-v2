@@ -234,3 +234,25 @@ int Election::elected_women() const{
     }
     return total;
 }
+
+//==============================================================================//
+Election::~Election(){
+    // for(Candidate* pt : this->candidates_pointers()){
+    //     delete pt;
+    // }
+    for(auto &item : this->candidates){
+        delete item.second;
+    }
+
+    for(auto &item : this->parties){
+        delete item.second;
+    }
+}
+
+list<Candidate*> Election::candidates_pointers() const{
+    list<Candidate*> pts;
+    for(const auto &item : this->candidates){
+        pts.push_back(item.second);
+    }
+    return pts;
+}
