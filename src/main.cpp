@@ -4,8 +4,9 @@
 #include "../include/input-services.hpp"
 #include "../include/output-services.hpp"
 #include "../include/date.hpp"
+#include "../include/file-input-exception.hpp"
 
-using std::exception;
+
 using std::cout;
 
 int main(int argc, char const *argv[])
@@ -23,8 +24,14 @@ int main(int argc, char const *argv[])
 
     // Criando buffer de entrada dos arquivos
     ifstream stream_candidates, stream_votes;
-    stream_candidates = in_service::create_reading_stream(argv[2]);
-    stream_votes = in_service::create_reading_stream(argv[3]);
+
+    try{
+        stream_candidates = in_service::create_reading_stream(argv[2]);
+        stream_votes = in_service::create_reading_stream(argv[3]);
+    } catch(const fileInputException& e){
+        std::cerr <<  e.what() << endl;
+    }
+
 
     // Instanciando a eleição
     Election election = Election(type, argv[4]);
