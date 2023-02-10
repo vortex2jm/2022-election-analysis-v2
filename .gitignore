@@ -1,11 +1,5 @@
 .vscode/
-auxiliar/
 obj/
 deputados
-candidatos.csv
-votacao.csv
-votacao2.csv
-votacaoes.csv
-TRABALHO-PRONTO
 test/
 script
