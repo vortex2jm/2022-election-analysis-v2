@@ -15,10 +15,16 @@ Date::Date(string date){
 bool Date::operator>(const Date& date2) const{
   if(this->year < date2.year)
     return true;
-  if(this->month < date2.month)
+
+  if(this->year == date2.year){
+    if(this->month < date2.month)
     return true;
-  if(this->day < date2.day)
-    return true;
+    
+    if(this->month == date2.month){
+      if(this->day < date2.day)
+      return true;
+    }
+  }
   return false;
 }
 
