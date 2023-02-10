@@ -6,9 +6,6 @@
 #include "../include/date.hpp"
 #include "../include/file-input-exception.hpp"
 
-
-using std::cout;
-
 int main(int argc, char const *argv[])
 {
     int type;
@@ -22,7 +19,7 @@ int main(int argc, char const *argv[])
     else
         exit(1);
 
-    // Criando buffer de entrada dos arquivos
+    // Entrada de dados
     ifstream stream_candidates, stream_votes;
 
     try{
@@ -31,7 +28,6 @@ int main(int argc, char const *argv[])
     } catch(const fileInputException& e){
         std::cerr <<  e.what() << endl;
     }
-
 
     // Instanciando a eleição
     Election election = Election(type, argv[4]);
