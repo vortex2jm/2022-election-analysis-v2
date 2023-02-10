@@ -28,8 +28,8 @@ private:
     PoliticalParty* party;
 
 public:
-    Candidate(int nrCandidato, string nmUrnaCandidato, string nmTipoDestinoVotos, Date dtNascimento,
-            bool cdSitTotTurno, int cdGenero, PoliticalParty * party);
+    Candidate(int nr_candidato, string nm_urna_candidato, string nm_tipo_destino_votos, Date &dt_nascimento,
+            bool cd_sit_tot_turno, int cd_genero, PoliticalParty * party);
 
     int get_qt_votos() const;
     int get_cd_genero() const;
@@ -44,7 +44,7 @@ public:
     bool get_cd_sit_tot_turno() const;
     bool operator>(const Candidate& cand2) const;
     bool operator==(const Candidate& cand2) const;
-    static bool candidate_pointer_comparator(const Candidate * const a, const Candidate * const b);
+    static bool candidate_comparator(const Candidate * const a, const Candidate * const b);
     
     string get_nm_urna_candidato() const;
     string get_nm_tipo_destino_votos() const;

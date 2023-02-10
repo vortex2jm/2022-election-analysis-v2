@@ -5,25 +5,27 @@
 #include "../include/input-services.hpp"
 #include "../include/political-party.hpp"
 
-using namespace in_service;
 
-//public methods=============//
 ifstream in_service::create_reading_stream(string file);
-void in_service::process_candidates_file(ifstream& stream, Election& election);
+vector<string> in_service::split(string input, char delimiter);
 void in_service::process_votes_file(ifstream& stream, Election& election);
-//private methods============//
-bool candidate_is_valid(string cd_cargo, string cd_detalhe_situacao_cand, int type);
-bool vote_is_valid(string cd_cago, string nr_voavel, int type);
-PoliticalParty * update_parties(Election &election, vector<string> data);
-vector<string> input_formatter(string line);
-void update_candidates(Election &electin, PoliticalParty * party, vector<string> data);
-void update_invalid_candidates(Election &election, PoliticalParty * party, vector<string> data);
+void in_service::process_candidates_file(ifstream& stream, Election& election);
+
+//===========================================================================================//
+void process_valid_candidates_votes(Election &election, vector<string> &data);
+void process_invalid_candidates_votes(Election &election, vector<string> &data);
+void update_candidates(Election &electin, PoliticalParty * party, vector<string> &data);
+void update_invalid_candidates(Election &election, PoliticalParty * party, vector<string> &data);
+
 bool is_elected_candidate(string sit);
-void process_valid_candidates_votes(Election &election, vector<string> data);
-void process_invalid_candidates_votes(Election &election, vector<string> data);
-//vector<string> split(const string& input, char delimiter);
+bool vote_is_valid(string cd_cargo, string nr_votavel, int type);
+bool candidate_is_valid(string cd_cargo, string cd_detalhe_situacao_cand, int type);
+
+string iso_8859_1_to_utf8(string str);
 string removeChar(string input, char character);
-string iso_8859_1_to_utf8(string &str);
+
+vector<string> input_formatter(string line);
+PoliticalParty * update_parties(Election &election, vector<string> &data);
 
 //===========================================================================================//
 ifstream in_service::create_reading_stream(string file){
@@ -103,7 +105,7 @@ bool vote_is_valid(string cd_cargo, string nr_votavel, int type){
 }
 
 //===========================================================================================//
-PoliticalParty* update_parties(Election &election, vector<string> data){
+PoliticalParty* update_parties(Election &election, vector<string> &data){
     int nr_partido, nr_federacao;
     string sg_partido = data[28];
     nr_partido = stoi(data[27]);
@@ -117,7 +119,7 @@ PoliticalParty* update_parties(Election &election, vector<string> data){
 
 //===========================================================================================//
 vector<string> input_formatter(string line){
-    vector<string> current_data = split(line, ';');
+    vector<string> current_data = in_service::split(line, ';');
     for(string &s : current_data){
         s = s.substr(1,s.length() - 2);
     }
@@ -125,7 +127,7 @@ vector<string> input_formatter(string line){
 }
 
 //===========================================================================================//
-void update_candidates(Election &election, PoliticalParty * party, vector<string> data){
+void update_candidates(Election &election, PoliticalParty * party, vector<string> &data){
     
     int nr_candidato;
     int cd_genero;
@@ -144,7 +146,7 @@ void update_candidates(Election &election, PoliticalParty * party, vector<string
 }
 
 //===========================================================================================//
-void update_invalid_candidates(Election &election, PoliticalParty * party, vector<string> data){
+void update_invalid_candidates(Election &election, PoliticalParty * party, vector<string> &data){
     int nr_candidato;
         nr_candidato = stoi(data[16]);
     election.add_legends_candidates_parties(nr_candidato, party);
@@ -160,12 +162,11 @@ bool is_elected_candidate(string sit){
 }
 
 //===========================================================================================//
-void process_valid_candidates_votes(Election &election, vector<string> data){
+void process_valid_candidates_votes(Election &election, vector<string> &data){
     int nr_votavel, qt_votos;
         nr_votavel = stoi(data[19]);
         qt_votos = stoi(data[21]);
     // Se o número é de um candidato, conta como voto nominal
-
     if (election.get_candidates_map().count(nr_votavel) != 0) {
         election.get_candidates_map().at(nr_votavel)->set_qt_votos(qt_votos);
         election.set_nominal_votes(qt_votos);
@@ -179,7 +180,7 @@ void process_valid_candidates_votes(Election &election, vector<string> data){
 }
 
 //===========================================================================================//
-void process_invalid_candidates_votes(Election &election, vector<string> data){
+void process_invalid_candidates_votes(Election &election, vector<string> &data){
     int nr_votavel, qt_votos;
         nr_votavel = stoi(data[19]);
         qt_votos= stoi(data[21]);
@@ -204,35 +205,22 @@ string removeChar(string input, char character) {
 }
 
 //===========================================================================================//
-std::vector<int> in_service::separate_by_slash(std::string date){
-
-  int day = stoi(date.substr(0,1));
-  int month = stoi(date.substr(3,4));
-  int year = stoi(date.substr(6,7));
-
-  std::vector<int> separated_date;
-  separated_date.push_back(day);
-  separated_date.push_back(month);
-  separated_date.push_back(year);
-
-  return separated_date;
-}
-
-//===========================================================================================//
-vector<string> in_service::split(const string &input, char delimiter)
+vector<string> in_service::split(string input, char delimiter)
 {
     vector<string> result;
-    string token;
+    string data;
+    
+    input = iso_8859_1_to_utf8(input);
     stringstream stream(input);
-    while (std::getline(stream, token, delimiter)) {
-            token = iso_8859_1_to_utf8(token);
-            result.push_back(token);
+
+    while (std::getline(stream, data, delimiter)) {
+            result.push_back(data);
         }
     return result;
 }
 
 //===========================================================================================//
-string iso_8859_1_to_utf8(string &str)
+string iso_8859_1_to_utf8(string str)
 {
   // adaptado de: https://stackoverflow.com/a/39884120 :-)
   string strOut;

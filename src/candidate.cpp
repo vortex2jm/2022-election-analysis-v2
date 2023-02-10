@@ -1,7 +1,7 @@
 #include "../include/candidate.hpp"
 
 //=========================================//
-Candidate::Candidate(int nr_candidato, string nm_urna_candidato, string nm_tipo_destino_votos, Date dt_nascimento,
+Candidate::Candidate(int nr_candidato, string nm_urna_candidato, string nm_tipo_destino_votos, Date &dt_nascimento,
             bool cd_sit_tot_turno, int cd_genero, PoliticalParty * party) : dt_nascimento(dt_nascimento){
     
     this->nr_candidato = nr_candidato;
@@ -78,6 +78,7 @@ int Candidate::get_geral_position() const{
     return this->geral_position;
 }
 
+//=========================================//
 bool Candidate::operator==(const Candidate& cand2) const{
     return this->nr_candidato == cand2.nr_candidato and 
             this->nm_urna_candidato == cand2.nm_urna_candidato and
@@ -87,17 +88,18 @@ bool Candidate::operator==(const Candidate& cand2) const{
             this->cd_genero == cand2.cd_genero and
             this->party == cand2.party and
             this->qt_votos == cand2.qt_votos;
-            // this->elected_position == cand2.elected_position and
-            // this->geral_position == cand2.geral_position;
 }
 
+//=========================================//
 bool Candidate::operator>(const Candidate& cand2) const{
     if(this->qt_votos == cand2.qt_votos){
         return this->dt_nascimento > cand2.dt_nascimento;
     }
     return this->qt_votos > cand2.qt_votos; 
 }
-bool Candidate::candidate_pointer_comparator(const Candidate * const a, const Candidate * const b)
+
+//=========================================//
+bool Candidate::candidate_comparator(const Candidate * const a, const Candidate * const b)
 {
     return *a > *b;
 }

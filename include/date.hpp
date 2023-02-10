@@ -6,16 +6,18 @@
 class Date {
 
 private:
+
   int day;
   int month;
   int year;
 
 public:
+
   Date(std::string date);
-  int until(const Date &date) const;
   std::string to_string() const;
-  bool operator==(const Date& date2) const;
+  int until(const Date &date) const;
   bool operator>(const Date& date2) const;
+  bool operator==(const Date& date2) const;
 };
 
 #endif

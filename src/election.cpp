@@ -24,7 +24,7 @@ int Election::get_type() const{
 }
 
 //==============================================================================//
-Date Election::get_current_date(){
+Date Election::get_current_date() const{
     return this->current_date;
 }
 
@@ -39,26 +39,32 @@ void Election::set_legend_votes(int legend_votes){
 }
 
 //==============================================================================//
-void Election::add_candidate(int nr_candidato, string nm_urna_candidato, string nm_tipo_destino_votos, Date dt_nascimento,
-            bool cd_sit_tot_turno, int cd_genero, PoliticalParty * party){
+void Election::add_candidate(int nr_candidato, string nm_urna_candidato, string nm_tipo_destino_votos, Date &dt_nascimento,
+                        bool cd_sit_tot_turno, int cd_genero, PoliticalParty * party){
 
     Candidate * cand = new Candidate(nr_candidato, nm_urna_candidato, nm_tipo_destino_votos, dt_nascimento, cd_sit_tot_turno, cd_genero, party);
     this->candidates.insert(make_pair(nr_candidato, cand));
     party->add_candidate(cand);
 }
 
-map<int, Candidate *> Election::get_candidates_map()
+//==============================================================================//
+map<int, Candidate *> Election::get_candidates_map() const
 {
     return this->candidates;
 }
-map<int, PoliticalParty *> Election::get_parties_map()
+
+//==============================================================================//
+map<int, PoliticalParty *> Election::get_parties_map() const
 {
     return this->parties;
 }
-map<int, PoliticalParty *> Election::get_legends_candidates_parties()
+
+//==============================================================================//
+map<int, PoliticalParty *> Election::get_legends_candidates_parties() const
 {
     return this->legends_candidates_parties;
 }
+
 //==============================================================================//
 PoliticalParty* Election::add_partie(int number, string sg, int federation){
     
@@ -236,26 +242,11 @@ int Election::elected_women() const{
 }
 
 //==============================================================================//
-// EM MANUTENÇÃO
-//############################################
 Election::~Election(){
-    // for(Candidate* pt : this->candidates_pointers()){
-    //     delete pt;
-    // }
     for(auto &item : this->candidates){
         delete item.second;
     }
-
     for(auto &item : this->parties){
         delete item.second;
     }
 }
-
-list<Candidate*> Election::candidates_pointers() const{
-    list<Candidate*> pts;
-    for(const auto &item : this->candidates){
-        pts.push_back(item.second);
-    }
-    return pts;
-}
-//############################################

@@ -39,32 +39,26 @@ public:
 
     void set_legend_votes(int legendVotes);
     void set_nominal_votes(int nominalVotes);
-    void set_parties(map<int, PoliticalParty> parties);
     void add_legends_candidates_parties(int key, PoliticalParty * value);
-    void add_candidate(int nr_candidato, string nm_urna_candidato, string nm_tipo_destino_votos, Date dt_nascimento,
+    void add_candidate(int nr_candidato, string nm_urna_candidato, string nm_tipo_destino_votos, Date &dt_nascimento,
                         bool cd_sit_tot_turno, int cd_genero, PoliticalParty * party);
     
-    map<int, Candidate*> get_candidates_map();
-    map<int, PoliticalParty*> get_parties_map();
-    map<int, PoliticalParty*> get_legends_candidates_parties();
+    map<int, Candidate*> get_candidates_map() const;
+    map<int, PoliticalParty*> get_parties_map() const;
+    map<int, PoliticalParty*> get_legends_candidates_parties() const;
     
     list<Candidate> elected_candidates() const;
     list<Candidate> get_all_candidates() const;
     list<Candidate> get_best_candidates() const;
-    list<Candidate> elected_if_major_election() const;
     list<Candidate> elected_by_proportional() const;
+    list<Candidate> elected_if_major_election() const;
     list<PoliticalParty> get_parties() const;
     list<PoliticalParty> get_parties_ordered_by_candidates() const;
     
-    Date get_current_date();
+    Date get_current_date() const;
     PoliticalParty* add_partie(int number, string sg, int federation);
 
-
-    // EM MANUTENÇÃO
-    //############################################
     ~Election();
-    list<Candidate*> candidates_pointers() const;
-    //############################################
 };
 
 #endif // ELECTION_H

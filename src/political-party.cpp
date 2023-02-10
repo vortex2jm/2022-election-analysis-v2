@@ -1,6 +1,5 @@
 #include "../include/political-party.hpp"
 
-//constructor
 PoliticalParty::PoliticalParty(int number, string sg, int federation){
     this->number = number;
     this->sg = sg;
@@ -8,7 +7,8 @@ PoliticalParty::PoliticalParty(int number, string sg, int federation){
     this->legend_votes = 0;
 }
 
-bool PoliticalParty::operator>(const PoliticalParty party2) const
+//=====================================================================//
+bool PoliticalParty::operator>(const PoliticalParty &party2) const
 {
     int own_total = this->legend_votes + this->get_nominal_votes();
     int other_total = party2.legend_votes + party2.get_nominal_votes();
@@ -24,6 +24,7 @@ bool PoliticalParty::operator>(const PoliticalParty party2) const
     return false;
 }
 
+//=====================================================================//
 bool PoliticalParty::party_comparator_by_candidate(const PoliticalParty &p1, const PoliticalParty &p2) {
     if(p1.most_voted_candidate().get_qt_votos() > p2.most_voted_candidate().get_qt_votos())
         return true;
@@ -38,67 +39,71 @@ bool PoliticalParty::party_comparator_by_candidate(const PoliticalParty &p1, con
     return false;
 }
 
-// ======================Getters==================================//
-
+//=====================================================================//
 string PoliticalParty::get_sg() const{
     return this->sg;
 }
+
+//=====================================================================//
 int PoliticalParty::get_legend_votes() const{
     return this->legend_votes;
 }
+
+//=====================================================================//
 int PoliticalParty::get_federation() const{
     return this->federation;
 }
+
+//=====================================================================//
 int PoliticalParty::get_number() const{
     return this->number;
 }
+
+//=====================================================================//
 int PoliticalParty::get_position() const{
     return this->position;
 }
+
+//=====================================================================//
 int PoliticalParty::get_total_votes() const{
     return this->legend_votes + get_nominal_votes();
 }
-// ======================Setters==================================//
 
+//=====================================================================//
 void PoliticalParty::set_legend_votes(int legend_votes){
     this->legend_votes += legend_votes;
 }
+
+//=====================================================================//
 void PoliticalParty::add_candidate(Candidate* candidate){
-    this->candidatesList.push_back(candidate);
+    this->candidates_list.push_back(candidate);
 }
-//TODO
+
+//=====================================================================//
 void PoliticalParty::set_position(int position){
     this->position = position;
 }
-// ======================other get methods======================//
 
-/**
- * @return Lista de candidatos do partido, ordenados
- */
-//ISTO FUNCIONA?
+//=====================================================================//
 list<Candidate*> PoliticalParty::get_candidates_list() const{
-    list<Candidate*> result = this->candidatesList;
-    result.sort(Candidate::candidate_pointer_comparator);
+    list<Candidate*> result = this->candidates_list;
+    result.sort(Candidate::candidate_comparator);
     return result;
 }
 
-/**
- * @return número de votos nominais
- */
+//=====================================================================//
 int PoliticalParty::get_nominal_votes() const{
     int total=0;
-    for(Candidate* c : this->candidatesList){
+    for(Candidate* c : this->candidates_list){
         total += c->get_qt_votos();
     }
     return total;
 }
 
-/**
- * @return a quantidade de candidatos do partido que foram eleitos
- */
+//=====================================================================//
 int PoliticalParty::get_elected_amount() const{
     int amount=0;
-    for(Candidate* c : this->candidatesList){
+    for(Candidate* c : this->candidates_list){
         if(c->get_cd_sit_tot_turno()){
             amount++;
         }
@@ -106,20 +111,16 @@ int PoliticalParty::get_elected_amount() const{
     return amount;
 }
 
-/**
- * @return o candidato mais votado do partido
- */
+//=====================================================================//
 Candidate PoliticalParty::most_voted_candidate() const{
-    list<Candidate*> ordered_list = this->candidatesList;
-    ordered_list.sort(Candidate::candidate_pointer_comparator);
+    list<Candidate*> ordered_list = this->candidates_list;
+    ordered_list.sort(Candidate::candidate_comparator);
     return *ordered_list.front();
 }
 
-/**
- * @return o candidato menos votado do partido
- */
+//=====================================================================//
 Candidate PoliticalParty::least_voted_candidate() const{
-    list<Candidate*> ordered_list = this->candidatesList;
-    ordered_list.sort(Candidate::candidate_pointer_comparator);
+    list<Candidate*> ordered_list = this->candidates_list;
+    ordered_list.sort(Candidate::candidate_comparator);
     return *ordered_list.back();
 }
