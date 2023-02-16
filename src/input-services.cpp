@@ -4,15 +4,16 @@
 #include <iostream>
 #include "../include/input-services.hpp"
 #include "../include/political-party.hpp"
+#include "../include/file-input-exception.hpp"
 
 
-ifstream in_service::create_reading_stream(string file);
+// ifstream in_service::create_reading_stream(string file);
 vector<string> in_service::split(string input, char delimiter);
-void in_service::process_votes_file(ifstream& stream, Election& election);
-void in_service::process_candidates_file(ifstream& stream, Election& election);
+void in_service::process_votes_file(string file, Election& election);
+void in_service::process_candidates_file(string file, Election& election);
 
 //===========================================================================================//
-void process_valid_candidates_votes(Election &election, vector<string> &data);
+bool process_valid_candidates_votes(Election &election, vector<string> &data);
 void process_invalid_candidates_votes(Election &election, vector<string> &data);
 void update_candidates(Election &electin, PoliticalParty * party, vector<string> &data);
 void update_invalid_candidates(Election &election, PoliticalParty * party, vector<string> &data);
@@ -24,7 +25,7 @@ bool candidate_is_valid(string cd_cargo, string cd_detalhe_situacao_cand, int ty
 string iso_8859_1_to_utf8(string str);
 string removeChar(string input, char character);
 
-vector<string> input_formatter(string line);
+vector<string> input_formatter(string &line);
 PoliticalParty * update_parties(Election &election, vector<string> &data);
 
 //===========================================================================================//
@@ -34,17 +35,22 @@ ifstream in_service::create_reading_stream(string file){
 }
 
 //===========================================================================================//
-void in_service::process_candidates_file(ifstream& stream, Election& election){
+void in_service::process_candidates_file(string file, Election& election){
     string current_line;
     vector<string> current_data;
     PoliticalParty *party;
-        getline(stream, current_line); // elimina a linha de legenda
-        while (stream.good()) {
-            
-            // Removendo aspas e separando por ";"
-            getline(stream, current_line);
+    ifstream f_input;
+
+    try{
+        f_input.open(file);
+
+        getline(f_input, current_line);
+        while (getline(f_input, current_line)) {
+
             if(current_line.size() == 0)
                 break;
+
+            // Removendo aspas e separando por ";"
             current_data = input_formatter(current_line);
             // Atualizando mapa de partidos
             party = update_parties(election, current_data);              
@@ -61,27 +67,35 @@ void in_service::process_candidates_file(ifstream& stream, Election& election){
                 update_invalid_candidates(election, party, current_data);
             }
         }
+    } catch(const fileInputException& e){
+        std::cerr <<  e.what() << endl;
+        cout << "Could not read file" << endl;
+    }
+
+    f_input.close();
 }
 
 //===========================================================================================//
-void in_service::process_votes_file(ifstream& stream, Election& election){
+void in_service::process_votes_file(string file, Election& election){
     string current_line;
     vector<string> current_data;
-        getline(stream, current_line); // Removendo linha de cabeçalho
-        while (stream.good()) {
-            
-            getline(stream, current_line);
-            if(current_line.size() == 0)
-                break;
-                
-            // Removendo aspas e separando por ";"
-            current_data = input_formatter(current_line);
-            // Se o voto é válido, é processado
-            if (vote_is_valid(current_data[17], current_data[19],  election.get_type())) {
-                process_valid_candidates_votes(election, current_data);
+    ifstream f_input;
+
+    f_input.open(file);
+
+    getline(f_input, current_line); // Removendo linha de cabeçalho
+
+    while (getline(f_input, current_line)) {
+
+        current_data = input_formatter(current_line);
+        
+        if (vote_is_valid(current_data[17], current_data[19],  election.get_type())) {
+            if(!process_valid_candidates_votes(election, current_data))
                 process_invalid_candidates_votes(election, current_data);
-            }
         }
+    }
+
+    f_input.close();
 }
 
 //===========================================================================================//
@@ -99,7 +113,7 @@ bool vote_is_valid(string cd_cargo, string nr_votavel, int type){
     int candidate_code, nrV;
         candidate_code = stoi(cd_cargo);
         nrV = stoi(nr_votavel);
-    if (candidate_code == type && nrV != 95 && nrV != 96 && nrV != 97 && nrV != 98)
+    if (candidate_code == type && !(nrV > 94 && nrV < 99))
         return true;
     return false;
 }
@@ -118,7 +132,7 @@ PoliticalParty* update_parties(Election &election, vector<string> &data){
 }
 
 //===========================================================================================//
-vector<string> input_formatter(string line){
+vector<string> input_formatter(string &line){
     vector<string> current_data = in_service::split(line, ';');
     for(string &s : current_data){
         s = s.substr(1,s.length() - 2);
@@ -162,7 +176,7 @@ bool is_elected_candidate(string sit){
 }
 
 //===========================================================================================//
-void process_valid_candidates_votes(Election &election, vector<string> &data){
+bool process_valid_candidates_votes(Election &election, vector<string> &data){
     int nr_votavel, qt_votos;
         nr_votavel = stoi(data[19]);
         qt_votos = stoi(data[21]);
@@ -170,13 +184,15 @@ void process_valid_candidates_votes(Election &election, vector<string> &data){
     if (election.get_candidates_map().count(nr_votavel) != 0) {
         election.get_candidates_map().at(nr_votavel)->set_qt_votos(qt_votos);
         election.set_nominal_votes(qt_votos);
-        return;
+        return true;
     }
     // Se o número é de um partido, conta como voto de legenda
     if (election.get_parties_map().count(nr_votavel)) {
         election.get_parties_map().at(nr_votavel)->set_legend_votes(qt_votos);
         election.set_legend_votes(qt_votos);
+        return true;
     }
+    return false;
 }
 
 //===========================================================================================//
